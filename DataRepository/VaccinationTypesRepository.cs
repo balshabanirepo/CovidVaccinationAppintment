@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataRepository
 {
-     class VaccinationTypesRepository: Model
+   public  class VaccinationTypesRepository: Model
     {
         [Key]
         public int Id { get; set; }
