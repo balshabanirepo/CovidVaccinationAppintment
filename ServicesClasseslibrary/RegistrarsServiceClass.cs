@@ -10,14 +10,14 @@ namespace ServicesClasseslibrary
     {
         private RegistrarsModelMapper modelMapper = new RegistrarsModelMapper();
 
-        public void AddRegistrar(RegistrarsDataModel vaccination)
+        public void AddRegistrar(RegistrarsDataModel registrar)
         {
-            modelMapper.AddRegistrar(vaccination);
+            modelMapper.AddRegistrar(registrar);
 
         }
-        public void EditRegistrar(RegistrarsDataModel vaccination)
+        public void EditRegistrar(RegistrarsDataModel registrar)
         {
-            modelMapper.Edit(vaccination);
+            modelMapper.Edit(registrar);
         }
         public void DeleteRegistrar(int id)
         {
