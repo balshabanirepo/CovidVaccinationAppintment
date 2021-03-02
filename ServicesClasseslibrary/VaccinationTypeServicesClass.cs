@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ServicesClasseslibrary
 {
-    public class VaccinationTypeServicesClass: IserviceClass
+    public class VaccinationTypeServicesClass: IVaccinationTypeServicesClass
     {
         private VaccinationTypesModelMapper modelMapper = new VaccinationTypesModelMapper();
 

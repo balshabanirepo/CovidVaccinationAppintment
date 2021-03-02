@@ -14,7 +14,7 @@ namespace CovidVaccinationAppointment.Controllers
     {
         private readonly ServicesClasseslibrary.VaccinationTypeServicesClass vaccinationTypeServices ;
 
-        public VaccinationTypesController(IserviceClass VaccinationTypeServices)
+        public VaccinationTypesController(IVaccinationTypeServicesClass VaccinationTypeServices)
         {
             vaccinationTypeServices =(VaccinationTypeServicesClass) VaccinationTypeServices;
         }

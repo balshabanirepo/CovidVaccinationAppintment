@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ServicesClasseslibrary
 {
-   public class RegistrarsServiceClass:IserviceClass
+   public class RegistrarsServiceClass: IRegistrarServiceClass
     {
         private RegistrarsModelMapper modelMapper = new RegistrarsModelMapper();
 

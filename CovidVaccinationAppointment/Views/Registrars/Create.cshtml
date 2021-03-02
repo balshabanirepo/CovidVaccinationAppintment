@@ -23,8 +23,13 @@
                 <span asp-validation-for="Telephone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input asp-for="ValidTelephone" type="text" value="0" style="visibility:visible" class="form-control" />
+                <span asp-validation-for="ValidTelephone" class="text-danger"   ></span>
             </div>
+                <input type="hidden" value="0" id="txtprocessed" />
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
         </form>
     </div>
 </div>
@@ -32,7 +37,10 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-<div id="results">
+<div id="divValidating">
+
+</div>
+<div id="divValidatinonResult">
 
 </div>
     @section Scripts {
@@ -45,15 +53,40 @@
 
                     function ()
                     {
-
-                        $.ajax({
-                            url: telephoneCheckerAPIUrl,
-                            data: { "Number": $('#Telephone').val() },
-                            cache: false
-                        })
-                            .done(function (html) {
-                                $("#results").append(html);
-                            });
+                        $('#divValidatinonResult').html("")
+                        $("#divValidating").html("validate")
+                        var loop = setInterval(function () {
+                            if ($('#txtprocessed').val() == '1')
+                            {
+                                $("#divValidating").html("")
+                                clearInterval(loop)
+                            }
+                           
+                        },1000)
+                        setTimeout(
+                            $.ajax({
+                                url: telephoneCheckerAPIUrl,
+                                data: { "Number": $('#Telephone').val() },
+                                async: true,
+                                cache: false
+                                  })
+                                    .done(function (html)
+                           {
+                        //                debugger;
+                        //               // $('#txtprocessed').val('1')
+                                        $("#divValidating").html("")
+                                     if (html.success.isSuccessStatusCode) {
+                                    
+                                      $("#ValidTelephone").val('1')
+                                      }
+                                     else
+                                       {
+                                         $('#divValidatinonResult').html("Invalid Phone Number")
+                                       
+                                       }
+                           }
+                               
+                             ),3000)
                     })
             })
         </script>

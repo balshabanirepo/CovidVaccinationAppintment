@@ -18,7 +18,7 @@ namespace CovidVaccinationAppointment.Controllers
 
         RegistrarsServiceClass _RegistrarsService = new RegistrarsServiceClass();
 
-        public RegistrarsController(IserviceClass RegistrarsService)
+        public RegistrarsController(IRegistrarServiceClass RegistrarsService)
         {
             _RegistrarsService = (RegistrarsServiceClass)RegistrarsService;
 
@@ -44,7 +44,7 @@ namespace CovidVaccinationAppointment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Telephone")] RegistrarsDataModel model)
+        public IActionResult Create(RegistrarsDataModel model)
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +55,7 @@ namespace CovidVaccinationAppointment.Controllers
         }
 
         // GET: RegistrarsRepositories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -75,9 +75,9 @@ namespace CovidVaccinationAppointment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind("Id,Name,Telephone")] RegistrarsDataModel registrarsRepository)
+        public ActionResult Edit( RegistrarsDataModel registrarsRepository)
         {
-            if (id != registrarsRepository.Id)
+            if (_RegistrarsService.GetById(registrarsRepository.Id)==null)
             {
                 return NotFound();
             }
@@ -142,7 +142,7 @@ namespace CovidVaccinationAppointment.Controllers
             string responeData;
             try
             {
-                responeData = await _IdCheckAPICaller.CallAPI();
+                    responeData = await _IdCheckAPICaller.CallAPI();
 
                 return Json(new { success = _IdCheckAPICaller.response, data = responeData });
 
