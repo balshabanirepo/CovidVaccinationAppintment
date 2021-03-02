@@ -9,6 +9,7 @@ using DataRepository;
 using DataRepository.GateWay;
 using ServicesClasseslibrary;
 using DataModel;
+using ServicesClasseslibrary.API;
 
 namespace CovidVaccinationAppointment.Controllers
 {
@@ -30,7 +31,7 @@ namespace CovidVaccinationAppointment.Controllers
             return View(_RegistrarsService.List());
         }
 
-       
+
 
         // GET: RegistrarsRepositories/Create
         public IActionResult Create()
@@ -60,7 +61,7 @@ namespace CovidVaccinationAppointment.Controllers
             {
                 return NotFound();
             }
-            
+
             var registrarsRepository = _RegistrarsService.GetById((Int32)id);
             if (registrarsRepository == null)
             {
@@ -86,7 +87,7 @@ namespace CovidVaccinationAppointment.Controllers
                 try
                 {
                     _RegistrarsService.EditRegistrar(registrarsRepository);
-                  
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -113,7 +114,7 @@ namespace CovidVaccinationAppointment.Controllers
             }
 
             var registrarsRepository = _RegistrarsService.GetById((Int32)(id));
-           
+
 
             return View(registrarsRepository);
         }
@@ -131,6 +132,26 @@ namespace CovidVaccinationAppointment.Controllers
         private bool RegistrarsRepositoryExists(int id)
         {
             return _RegistrarsService.GetById((Int32)(id)) != null;
+        }
+
+        public async Task<ActionResult> CallTelephoneGeneratorFunction(string Number)
+        {
+            IdCheckAPICaller _IdCheckAPICaller = new IdCheckAPICaller();
+            _IdCheckAPICaller.Number = Number;
+
+            string responeData;
+            try
+            {
+                responeData = await _IdCheckAPICaller.CallAPI();
+
+                return Json(new { success = _IdCheckAPICaller.response, data = responeData });
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, data = ex.Message });
+            }
+
         }
     }
 }

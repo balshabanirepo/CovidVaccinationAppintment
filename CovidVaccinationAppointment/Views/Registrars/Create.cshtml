@@ -32,7 +32,29 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+<div id="results">
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+</div>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script>
+    var telephoneCheckerAPIUrl= '@Url.Action("CallTelephoneGeneratorFunction", "Registrars")'
+
+            $(function () {
+                $('#Telephone').change(
+
+                    function ()
+                    {
+
+                        $.ajax({
+                            url: telephoneCheckerAPIUrl,
+                            data: { "Number": $('#Telephone').val() },
+                            cache: false
+                        })
+                            .done(function (html) {
+                                $("#results").append(html);
+                            });
+                    })
+            })
+        </script>
+    }
