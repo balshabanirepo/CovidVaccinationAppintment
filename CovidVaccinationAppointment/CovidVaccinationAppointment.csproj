@@ -23,8 +23,4 @@
     <ProjectReference Include="..\ServicesClasseslibrary\ServicesClasseslibrary.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\VaccinationReservation\" />
-  </ItemGroup>
-
 </Project>

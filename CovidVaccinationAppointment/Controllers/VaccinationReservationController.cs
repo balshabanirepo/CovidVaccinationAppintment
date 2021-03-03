@@ -5,15 +5,22 @@ using System.Threading.Tasks;
 using DataModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ServicesClasseslibrary;
 
 namespace CovidVaccinationAppointment.Controllers
 {
     public class VaccinationReservationController : Controller
     {
-        // GET: VaccinationReservationController
-        public ActionResult Index()
+        private readonly RegistrarsServiceClass _registrarService;
+        public VaccinationReservationController(IRegistrarServiceClass registrarService)
         {
-            return View();
+            _registrarService = (RegistrarsServiceClass)registrarService;
+        }
+        // GET: VaccinationReservationController
+        public ActionResult RegistrarSearch()
+        {
+
+            return View(new RegistrarSearchDataModel {SearchText="", Registrars = new List<RegistrarsDataModel>() });
         }
 
         // GET: VaccinationReservationController/Details/5
@@ -23,6 +30,21 @@ namespace CovidVaccinationAppointment.Controllers
         public ActionResult Create()
         {
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ExecuteRegistrarSearch(RegistrarSearchDataModel registrarSearchDataModel)
+        {
+            try
+            {
+
+                registrarSearchDataModel.Registrars = _registrarService.List().Where(w => w.Name.Contains(registrarSearchDataModel.SearchText) || w.Name.Contains(registrarSearchDataModel.SearchText)).ToList();
+                return View("RegistrarSearch", registrarSearchDataModel);
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         // POST: VaccinationReservationController/Create

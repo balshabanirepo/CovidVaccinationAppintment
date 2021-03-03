@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CovidVaccinationAppointment
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataRepository", "DataRepository\DataRepository.csproj", "{9E1F8EA8-E68D-40A0-9EE9-477203DF5E52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{EBFEB2A1-EEB4-4BBB-B6BB-390B9A48C8A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModel", "DataModel\DataModel.csproj", "{EBFEB2A1-EEB4-4BBB-B6BB-390B9A48C8A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicesClasseslibrary", "ServicesClasseslibrary\ServicesClasseslibrary.csproj", "{CC459AA4-46C1-485A-8A07-5D0D88564D06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicesClasseslibrary", "ServicesClasseslibrary\ServicesClasseslibrary.csproj", "{CC459AA4-46C1-485A-8A07-5D0D88564D06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
