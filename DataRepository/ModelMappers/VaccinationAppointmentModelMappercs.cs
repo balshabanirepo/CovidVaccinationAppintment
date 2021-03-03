@@ -23,7 +23,7 @@ namespace DataRepository.ModelMappers
             vaccinationReservation.VaccinationTypeId =(int) model.VaccinationTypeId;
             vaccinationReservation.ReservationDateTime = model.ReservationDateTime;
             dataBaseGateWay.Add(vaccinationReservation);
-
+            
         }
 
         public void Edit(VaccinationReservationDataModel model)
