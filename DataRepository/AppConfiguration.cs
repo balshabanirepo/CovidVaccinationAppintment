@@ -16,7 +16,7 @@ namespace DataRepository
             configurationBuilder.AddJsonFile(path, false);
 
             var root = configurationBuilder.Build();
-            _connectionString = root.GetSection("ConnectionStrings").GetSection("DataConnection").Value;
+            _connectionString = root.GetSection("ConnectionStrings").GetSection("DbCoreConnectionString").Value;
             var appSetting = root.GetSection("ApplicationSettings");
         }
         public string ConnectionString

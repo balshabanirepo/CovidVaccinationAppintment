@@ -16,9 +16,12 @@ namespace DataRepository.GateWay
         }
         protected  override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+           
             AppConfiguration configuration = new AppConfiguration();
-            //string conn= "Data Source=U-PC\\SQLEXPRESS;Initial Catalog=CovidVaccinationAppointment;User ID=sa;Password=sa1234";
-            string conn = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename =C:\\Users\\balshabani\\Source\\Repos\\basemsha3bani\\CovidVaccinationAppointment\\DataRepository\\CovidVaccinationProject.mdf; Integrated Security = True";
+
+          
+            string conn = configuration.ConnectionString;
+
             optionsBuilder.UseSqlServer(conn);
          
         }
