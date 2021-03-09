@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DataModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -9,8 +10,8 @@ using System.Threading.Tasks;
 {
    public class TokenManager
     {
-        string apiUrlForPractionerTokenRetrieve = "https://epns.scfhs.org.sa/token";
-
+        string apiUrlForTokenRetrieve = "http://localhost:65501/api/Home/CheckToken";
+        SystemSettingsServiceClass SystemSettingsServiceClass = new SystemSettingsServiceClass();
 
         public string Token { get; set; }
 
@@ -20,22 +21,18 @@ using System.Threading.Tasks;
         public void ReadTokenValueFromDb()
         {
 
-            //unitOfWork = new UnitOfWork();
-            //systemConfiguration = unitOfWork.SystemConfigurationRepository.AllQueryable().ToList().FirstOrDefault();
-
-            //if (systemConfiguration != null)
-            //{
-            //    Token = systemConfiguration.APIToken;
-
-            //}
-
+          SystemSettingsDataModel settingsDataModel=  SystemSettingsServiceClass.GetSystemsettingsdatamodel();
+            if (settingsDataModel != null)
+            {
+                Token = settingsDataModel.Token;
+            }
         }
 
         public async Task<bool> CheckIfTokenExpired()
         {
 
 
-            string apiUrlForPractionerIdCheck = "https://prdgta.scfhs.org.sa/practitioner/profile/rst/1.0.0";
+            string apiUrlForPractionerIdCheck = "http://localhost:65501/api/TelephoneDirectories/PhoneByNumber";
 
             HttpClient client = new HttpClient();
             client = new HttpClient();
@@ -55,12 +52,11 @@ using System.Threading.Tasks;
             //,
             //    PractitionerIdentity = newPractitionerIdentity
             {
-                IDName = "RegistrationNumber",
+                Number = "Number",
                 IDValue = "1111"
             });
 
-            HttpResponseMessage response = await client.PostAsync(apiUrlForPractionerIdCheck, new
-           StringContent(RequestObject, Encoding.UTF8, "application/json"));
+            HttpResponseMessage response = await client.PostAsync(apiUrlForPractionerIdCheck+ "?Number=0000",new StringContent(""));
             return !response.IsSuccessStatusCode;
 
 
@@ -92,15 +88,35 @@ using System.Threading.Tasks;
             string responeData = "";
             Dictionary<string, string> responeDataConverted;
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(apiUrlForPractionerTokenRetrieve);
-
-            client.DefaultRequestHeaders.Add("Authorization", "Basic ekl6bFVWYWdzR3RBSDJ4R25UY2tJeXk5cDFBYTpmT2RkNG9RRjBma0FRUDRFcUc5VHN3UktrSklh");
-
-            var RequestObject = new Dictionary<string, string>();
-            RequestObject.Add("grant_type", "client_credentials");
+            client.BaseAddress = new Uri(apiUrlForTokenRetrieve);
 
 
-            HttpResponseMessage response = await client.PostAsync(apiUrlForPractionerTokenRetrieve, new FormUrlEncodedContent(RequestObject));
+
+            //var RequestObject = new Dictionary<string, string>();
+            //RequestObject.Add("grant_type", "client_credentials");
+
+
+
+            var RequestObject = JsonConvert.SerializeObject(
+
+            //    HPISRequest
+
+
+            //    ServiceKey= "SCFHS"
+
+            //,
+               new 
+               {
+
+                userName = "JPhontain",
+                Password= "A@67b12345"
+            });
+
+
+
+            HttpResponseMessage response = await client.PostAsync(client.BaseAddress, new StringContent(RequestObject, System.Text.Encoding.UTF8, "application/json"));
+
+
 
 
             responeData = await response.Content.ReadAsStringAsync();

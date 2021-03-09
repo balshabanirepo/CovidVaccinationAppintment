@@ -32,6 +32,8 @@ namespace DataRepository.GateWay
 
         public DbSet<VaccinationReservationRepository> VaccinationReservation { get; set; }
 
+        public DbSet<SystemSettingsRepository> SystemSettings { get; set; }
+
 
     }
 }

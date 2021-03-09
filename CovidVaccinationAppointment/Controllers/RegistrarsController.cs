@@ -136,15 +136,15 @@ namespace CovidVaccinationAppointment.Controllers
 
         public async Task<ActionResult> CallTelephoneGeneratorFunction(string Number)
         {
-            IdCheckAPICaller _IdCheckAPICaller = new IdCheckAPICaller();
-            _IdCheckAPICaller.Number = Number;
+            TelephoneCheckAPICaller telephoneCheckAPICaller = new TelephoneCheckAPICaller();
+            telephoneCheckAPICaller.Number = Number;
 
             string responeData;
             try
             {
-                    responeData = await _IdCheckAPICaller.CallAPI();
+                    responeData = await telephoneCheckAPICaller.CallAPI();
 
-                return Json(new { success = _IdCheckAPICaller.response, data = responeData });
+                return Json(new { success = telephoneCheckAPICaller.response, data = responeData });
 
             }
             catch (Exception ex)
