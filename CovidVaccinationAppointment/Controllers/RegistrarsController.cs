@@ -16,11 +16,14 @@ namespace CovidVaccinationAppointment.Controllers
     public class RegistrarsController : Controller
     {
 
-        RegistrarsServiceClass _RegistrarsService = new RegistrarsServiceClass();
+        RegistrarsServiceClass _RegistrarsService ;
+        RegistrationObserver registrationObserver;
 
-        public RegistrarsController(IRegistrarServiceClass RegistrarsService)
+        public RegistrarsController(IRegistrarServiceClass RegistrarsService,IRegisrtationObserver RegistrationObserver)
         {
             _RegistrarsService = (RegistrarsServiceClass)RegistrarsService;
+            registrationObserver = (RegistrationObserver)RegistrationObserver;
+            
 
 
         }
@@ -125,7 +128,7 @@ namespace CovidVaccinationAppointment.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
 
-            _RegistrarsService.DeleteRegistrar(id);
+            _RegistrarsService.DeleteRegistrars(id);
             return RedirectToAction(nameof(Index));
         }
 

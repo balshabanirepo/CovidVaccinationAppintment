@@ -19,16 +19,17 @@ namespace ServicesClasseslibrary
         {
             modelMapper.Edit(registrar);
         }
-        public void DeleteRegistrar(int id)
-        {
-            modelMapper.Delete(id);
-        }
+      
         public List<RegistrarsDataModel> List()
         {
             return modelMapper.list();
 
 
 
+        }
+        public void DeleteRegistrars(int Id)
+        {
+            modelMapper.Delete(Id);
         }
         public RegistrarsDataModel GetById(int id)
         {
