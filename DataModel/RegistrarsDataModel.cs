@@ -12,5 +12,7 @@ namespace DataModel
         public string Telephone { get; set; }
         [Range(1,1,ErrorMessage ="Please enter a valid Phone number")]
         public byte ValidTelephone { get; set; }
+
+        public bool GivenAppointment { get; set; }
     }
 }

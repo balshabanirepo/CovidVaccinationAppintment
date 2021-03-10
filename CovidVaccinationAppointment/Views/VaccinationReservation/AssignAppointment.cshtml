@@ -1,0 +1,32 @@
+﻿@model DataModel.AppintmentDataModel
+
+<h4>AppintmentDataModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="@Url.Action("","")">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AppointmentDate" class="control-label"></label>
+                <input asp-for="AppointmentDate" class="form-control" />
+                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegistrarIds" class="control-label"></label>
+                <input asp-for="RegistrarIds" class="form-control" style="visibility:hidden" />
+                <span asp-validation-for="RegistrarIds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="button" value="Create" onclick=" return populateSelected()" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,6 +1,7 @@
 ﻿
 @model DataModel.RegistrarSearchDataModel
 @{
+   
 
     <div class="row">
         <div class="col-md-4">
@@ -17,21 +18,37 @@
                 </div>
             </form>
             @Html.Partial("RegistrarSearchExecutionResult", Model.Registrars)
+            
+           
         </div>
     </div>
 
 }
 @section Scripts {
 <script>
-    $(function () {
-        $('.select-registrar').click(function () {
-            
-            var tr = $(this).closest('tr')
-            var td = tr.find(' td:nth-child(1)')
-            var registrarId = td.prop("innerText")
-            alert(registrarId)
+    function populateSelected() {
+       
+        var cb = $('.select-registrar')
+        var selected = "", tr, td, registrarId
+        $.each(cb,function (item, index) {
+            debugger;
+            var cb = $(index)
+            if (cb.is(":checked")) {
+                tr = cb.closest('tr')
+                td = tr.find(' td:nth-child(1)')
+                registrarId = td.prop("innerText")
+                if (selected == "") {
+                    selected = selected + registrarId
+                }
+                else {
+                    selected = selected +","+registrarId
+                }
+            }
+
         })
-    })
+       
+    }
+    
 </script>
 
 }

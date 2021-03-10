@@ -1,9 +1,12 @@
 ﻿@model IEnumerable<DataModel.RegistrarsDataModel>
 
 
+
+
 <table class="table">
     <thead>
         <tr>
+
             <th>
                 @Html.DisplayNameFor(model => model.Id)
             </th>
@@ -16,29 +19,37 @@
             <th>
                 @Html.DisplayNameFor(model => model.ValidTelephone)
             </th>
-            <th></th>
+            <th>Give appointment</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telephone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValidTelephone)
-            </td>
-            <td>
-                <a href="#" class="select-registrar">Select</a>
-              
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telephone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValidTelephone)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(modelItem => item.GivenAppointment, new { @class = "select-registrar" })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@if(Model.Count()>0)
+{
+ DataModel.AppintmentDataModel appintmentDataModel = new DataModel.AppintmentDataModel();
+@Html.Partial("AssignAppointment", appintmentDataModel)
+}
+
+
