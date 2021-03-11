@@ -9,27 +9,34 @@ namespace ServicesClasseslibrary
    public class RegistrationObserver:IRegisrtationObserver
     {
         private RegistrarsModelMapper modelMapper;
-        List<RegistrarsDataModel> registrars;
+        List<VaccinationReservationDataModel> VaccinationReservations;
 
         public RegistrationObserver()
         {
             modelMapper = new RegistrarsModelMapper();
-            registrars = new List<RegistrarsDataModel>();
+            VaccinationReservations = new List<VaccinationReservationDataModel>();
         }
 
-        public void AddRegistrar(RegistrarsDataModel registrar)
+        public void AddRegistrar(VaccinationReservationDataModel registrar)
 
         {
-            registrars.Add(registrar);
+            VaccinationReservations.Add(registrar);
 
         }
+        public void AddRegistrars(List<VaccinationReservationDataModel> pvaccinationReservations)
 
-        public void RemoveRegistrar(RegistrarsDataModel registrar)
         {
-            registrars.Remove(registrar);
+            VaccinationReservations.AddRange(pvaccinationReservations);
+            NotifyRegistrar(pvaccinationReservations);
+
         }
 
-        public void NotifyRegistrar(List<RegistrarsDataModel> registrars)
+        public void RemoveRegistrar(VaccinationReservationDataModel registrar)
+        {
+            VaccinationReservations.Remove(registrar);
+        }
+
+        private void NotifyRegistrar(List<VaccinationReservationDataModel> registrars)
         {
 
         }

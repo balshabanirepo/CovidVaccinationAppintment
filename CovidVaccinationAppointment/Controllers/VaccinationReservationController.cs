@@ -12,9 +12,11 @@ namespace CovidVaccinationAppointment.Controllers
     public class VaccinationReservationController : Controller
     {
         private readonly RegistrarsServiceClass _registrarService;
-        public VaccinationReservationController(IRegistrarServiceClass registrarService)
+        private readonly RegistrationObserver _registrationObserver;
+        public VaccinationReservationController(IRegistrarServiceClass registrarService, IRegisrtationObserver regisrtationObserver)
         {
             _registrarService = (RegistrarsServiceClass)registrarService;
+            _registrationObserver = (RegistrationObserver)regisrtationObserver;
         }
         // GET: VaccinationReservationController
         public ActionResult RegistrarSearch()
@@ -50,10 +52,22 @@ namespace CovidVaccinationAppointment.Controllers
         // POST: VaccinationReservationController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(VaccinationReservationDataModel vaccinationReservation)
+        public ActionResult Create(AppintmentDataModel appintmentDataModel)
         {
             try
-            {
+
+            { 
+             List<string> RegistrarIds=   appintmentDataModel.RegistrarIds.Split(",".ToCharArray()[0]).ToList();
+                List<VaccinationReservationDataModel> registrars = (from id in RegistrarIds
+                                                                    select new VaccinationReservationDataModel
+                                                                    {
+                                                                        RegistrarId = int.Parse(id),
+                                                                        ReservationDateTime = appintmentDataModel.AppointmentDate
+
+                                                                    }).ToList();
+
+                _registrationObserver.AddRegistrars(registrars);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
