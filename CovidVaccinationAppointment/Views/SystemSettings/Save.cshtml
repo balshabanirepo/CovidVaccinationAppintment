@@ -1,0 +1,46 @@
+﻿@model DataModel.SystemSettingsDataModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>SystemSettings</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Save">
+            
+           
+            <div class="form-group">
+                <label asp-for="NotificationType" class="control-label"></label>
+                <select onchange="$('#NotificationType').val($(this).val())" id="ddlNotificationType">
+                    <option value="" selected>Please Select</option>
+                    <option value="1" selected>By Mail</option>
+                    <option value="2">By Phone</option>
+                </select>
+                <input asp-for="NotificationType" class="form-control" style="visibility:visible" />
+                <span asp-validation-for="NotificationType" class="text-danger"></span>
+                <input asp-for="Id" class="form-control" style="visibility:hidden" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Back to HomePage</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    $(function () {
+        $("#ddlNotificationType").val($("#NotificationType").val())
+
+    })
+</script>
+}

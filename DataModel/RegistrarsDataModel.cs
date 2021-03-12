@@ -14,5 +14,8 @@ namespace DataModel
         public byte ValidTelephone { get; set; }
 
         public bool GivenAppointment { get; set; }
+
+
+        public bool Notified { get; set; }
     }
 }

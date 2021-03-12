@@ -23,11 +23,12 @@ namespace ServicesClasseslibrary
             VaccinationReservations.Add(registrar);
 
         }
-        public void AddRegistrars(List<VaccinationReservationDataModel> pvaccinationReservations)
+        public string AddRegistrars(List<VaccinationReservationDataModel> pvaccinationReservations)
 
         {
             VaccinationReservations.AddRange(pvaccinationReservations);
-            NotifyRegistrar(pvaccinationReservations);
+            return NotifyRegistrar(pvaccinationReservations);
+              
 
         }
 
@@ -36,9 +37,24 @@ namespace ServicesClasseslibrary
             VaccinationReservations.Remove(registrar);
         }
 
-        private void NotifyRegistrar(List<VaccinationReservationDataModel> registrars)
+        private string NotifyRegistrar(List<VaccinationReservationDataModel> registrars)
         {
+            Inotifier notifier;
+            SystemSettingsDataModel systemSettings;
+            SystemSettingsServiceClass settingsServiceClass = new SystemSettingsServiceClass();
+             systemSettings = settingsServiceClass.GetSystemSettings();
+            if(systemSettings!=null)
+            {
+                if (systemSettings.NotificationType == 1)
+                    notifier = new NotifierByPhone();
+                else
 
+                    notifier = new NotifyByEmail();
+
+                notifier.Notify();
+            }
+            return "no system settings found";
+            
         }
     }
 }

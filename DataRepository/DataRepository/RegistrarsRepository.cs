@@ -9,5 +9,7 @@ namespace DataRepository
         public string Name { get; set; }
 
         public string Telephone { get; set; }
+
+        public bool Notified { get; set; }
     }
 }

@@ -18,13 +18,14 @@ namespace DataRepository.ModelMappers
         }
     
 
-    public void AddVaccinationType(SystemSettingsDataModel model)
+    public void AddSystemSettings(SystemSettingsDataModel model)
     {
         SystemSettingsRepository SystemSettings = new SystemSettingsRepository();
 
             SystemSettings.Token = model.Token;
-     
-        dataBaseGateWay.Add(SystemSettings);
+            SystemSettings.NotificationType = (byte)model.NotificationType;
+
+            dataBaseGateWay.Add(SystemSettings);
 
     }
 
@@ -32,6 +33,8 @@ namespace DataRepository.ModelMappers
     {
             SystemSettingsRepository SystemSettings = new SystemSettingsRepository();
             SystemSettings.Token = model.Token;
+            SystemSettings.NotificationType = (byte)model.NotificationType;
+            SystemSettings.Id = model.Id;
             dataBaseGateWay.Edit(SystemSettings);
     }
 
@@ -63,7 +66,8 @@ namespace DataRepository.ModelMappers
                select new SystemSettingsDataModel
                {
                     Id = r.Id,
-                    Token = r.Token
+                    Token = r.Token,
+                    NotificationType=r.NotificationType
                }).ToList();
           
     }

@@ -13,6 +13,7 @@ namespace CovidVaccinationAppointment.Controllers
     {
         private readonly RegistrarsServiceClass _registrarService;
         private readonly RegistrationObserver _registrationObserver;
+       
         public VaccinationReservationController(IRegistrarServiceClass registrarService, IRegisrtationObserver regisrtationObserver)
         {
             _registrarService = (RegistrarsServiceClass)registrarService;
@@ -40,7 +41,7 @@ namespace CovidVaccinationAppointment.Controllers
             try
             {
 
-                registrarSearchDataModel.Registrars = _registrarService.List().Where(w => w.Name.Contains(registrarSearchDataModel.SearchText) || w.Name.Contains(registrarSearchDataModel.SearchText)).ToList();
+                registrarSearchDataModel.Registrars = _registrarService.List().Where(w =>( w.Name.Contains(registrarSearchDataModel.SearchText) || w.Telephone.Contains(registrarSearchDataModel.SearchText))&&!w.Notified).ToList();
                 return View("RegistrarSearch", registrarSearchDataModel);
             }
             catch
@@ -66,14 +67,15 @@ namespace CovidVaccinationAppointment.Controllers
 
                                                                     }).ToList();
 
-                _registrationObserver.AddRegistrars(registrars);
+              
 
-                return RedirectToAction(nameof(Index));
+               ViewBag.SuccessFailueMessage = _registrationObserver.AddRegistrars(registrars);
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ViewBag.SuccessFailueMessage = ex.Message;
             }
+            return View();
         }
 
         // GET: VaccinationReservationController/Edit/5

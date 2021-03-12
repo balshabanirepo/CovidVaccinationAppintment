@@ -26,6 +26,7 @@ namespace CovidVaccinationAppointment
             services.AddControllersWithViews();
             services.AddScoped<IVaccinationTypeServicesClass, VaccinationTypeServicesClass>();
             services.AddScoped<IRegistrarServiceClass, RegistrarsServiceClass>();
+            services.AddScoped<ISystemSettingsServiceClass, SystemSettingsServiceClass>();
             services.AddScoped<IRegisrtationObserver, RegistrationObserver>();
         }
 

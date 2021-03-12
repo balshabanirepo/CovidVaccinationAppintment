@@ -21,7 +21,7 @@ using System.Threading.Tasks;
         public void ReadTokenValueFromDb()
         {
 
-          SystemSettingsDataModel settingsDataModel=  SystemSettingsServiceClass.GetSystemsettingsdatamodel();
+          SystemSettingsDataModel settingsDataModel=  SystemSettingsServiceClass.GetSystemSettings();
             if (settingsDataModel != null)
             {
                 Token = settingsDataModel.Token;

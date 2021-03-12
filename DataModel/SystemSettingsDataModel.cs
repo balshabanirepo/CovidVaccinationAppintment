@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace DataModel
@@ -10,8 +11,8 @@ namespace DataModel
 
         public string Token { get; set; }
 
-
-        public byte NotificationType { get; set; }
+        [Required]
+        public byte? NotificationType { get; set; }
 
     }
 }
