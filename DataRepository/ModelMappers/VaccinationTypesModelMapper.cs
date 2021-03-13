@@ -8,10 +8,10 @@ namespace DataRepository.GateWay
 {
    public class VaccinationTypesModelMapper
     {
-         DataBaseGateWay<VaccinationTypesRepository> dataBaseGateWay;
+         RepositoryGateWay<VaccinationTypesRepository> dataBaseGateWay;
         public VaccinationTypesModelMapper()
              {
-                dataBaseGateWay = new DataBaseGateWay<VaccinationTypesRepository>();
+                dataBaseGateWay = new RepositoryGateWay<VaccinationTypesRepository>();
 
              }
         public void AddVaccinationType(VaccinationTypesDataModel model)
@@ -26,9 +26,10 @@ namespace DataRepository.GateWay
         public void Edit(VaccinationTypesDataModel model)
         {
             VaccinationTypesRepository vaccinationTypes = new VaccinationTypesRepository();
+            VaccinationTypesRepository vaccinationTypesStoredInDb = dataBaseGateWay.GetById(g => g.Id == model.Id);
             vaccinationTypes.Id = model.Id;
             vaccinationTypes.Name = model.Name;
-            dataBaseGateWay.Edit(vaccinationTypes);
+            dataBaseGateWay.Edit(vaccinationTypesStoredInDb,vaccinationTypes);
         }
 
         public void Delete(int id)

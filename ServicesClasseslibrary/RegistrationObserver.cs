@@ -10,11 +10,13 @@ namespace ServicesClasseslibrary
     {
         private RegistrarsModelMapper modelMapper;
         List<VaccinationReservationDataModel> VaccinationReservations;
-
+        
+    
         public RegistrationObserver()
         {
             modelMapper = new RegistrarsModelMapper();
             VaccinationReservations = new List<VaccinationReservationDataModel>();
+           
         }
 
         public void AddRegistrar(VaccinationReservationDataModel registrar)
@@ -37,8 +39,12 @@ namespace ServicesClasseslibrary
             VaccinationReservations.Remove(registrar);
         }
 
-        private string NotifyRegistrar(List<VaccinationReservationDataModel> registrars)
+        private string NotifyRegistrar(List<VaccinationReservationDataModel> VaccinationReservatitions)
         {
+
+            List<RegistrarsDataModel> registrars;
+
+
             Inotifier notifier;
             SystemSettingsDataModel systemSettings;
             SystemSettingsServiceClass settingsServiceClass = new SystemSettingsServiceClass();
@@ -46,12 +52,14 @@ namespace ServicesClasseslibrary
             if(systemSettings!=null)
             {
                 if (systemSettings.NotificationType == 1)
+                {
                     notifier = new NotifierByPhone();
+                }
                 else
-
+                {
                     notifier = new NotifyByEmail();
-
-                notifier.Notify();
+                }
+                return notifier.Notify();
             }
             return "no system settings found";
             

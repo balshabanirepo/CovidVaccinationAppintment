@@ -6,19 +6,24 @@ using DataModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServicesClasseslibrary;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 namespace CovidVaccinationAppointment.Controllers
 {
     public class VaccinationReservationController : Controller
     {
         private readonly RegistrarsServiceClass _registrarService;
         private readonly RegistrationObserver _registrationObserver;
+        VaccinationTypeServicesClass _vaccinationTypeServicesClass;
        
-        public VaccinationReservationController(IRegistrarServiceClass registrarService, IRegisrtationObserver regisrtationObserver)
+        public VaccinationReservationController(IRegistrarServiceClass registrarService, IRegisrtationObserver regisrtationObserver
+            ,IVaccinationTypeServicesClass vaccinationTypeServicesClass)
         {
             _registrarService = (RegistrarsServiceClass)registrarService;
             _registrationObserver = (RegistrationObserver)regisrtationObserver;
+            _vaccinationTypeServicesClass = (VaccinationTypeServicesClass)vaccinationTypeServicesClass;
         }
+        
+
         // GET: VaccinationReservationController
         public ActionResult RegistrarSearch()
         {
@@ -42,6 +47,11 @@ namespace CovidVaccinationAppointment.Controllers
             {
 
                 registrarSearchDataModel.Registrars = _registrarService.List().Where(w =>( w.Name.Contains(registrarSearchDataModel.SearchText) || w.Telephone.Contains(registrarSearchDataModel.SearchText))&&!w.Notified).ToList();
+                List<VaccinationTypesDataModel> vaccinationTypes = _vaccinationTypeServicesClass.List();
+                vaccinationTypes.Add(new VaccinationTypesDataModel { Id = 0, Name = "Please Select" });
+                SelectList VaccinationTypes = new SelectList(vaccinationTypes, "Id", "Name","0");
+               
+                ViewBag.VaccinationTypes = VaccinationTypes;
                 return View("RegistrarSearch", registrarSearchDataModel);
             }
             catch
@@ -55,29 +65,56 @@ namespace CovidVaccinationAppointment.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(AppintmentDataModel appintmentDataModel)
         {
+            DateTime ReservationDateTime;
+            ReservationDateTime = DateTime.ParseExact(appintmentDataModel.AppointmentDateAsString, "dd/MM/yyyy", new System.Globalization.CultureInfo("en-Us"));
+
             try
 
             { 
-             List<string> RegistrarIds=   appintmentDataModel.RegistrarIds.Split(",".ToCharArray()[0]).ToList();
-                List<VaccinationReservationDataModel> registrars = (from id in RegistrarIds
+                if(ReservationDateTime.Date<DateTime.Now.Date)
+                    {
+                    throw new Exception("Reservation date should be less  than or equal to today's date");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return View(appintmentDataModel);
+
+                }
+                List<string> RegistrarIds=   appintmentDataModel.RegistrarIds.Split(",".ToCharArray()[0]).ToList();
+               
+                List<VaccinationReservationDataModel> VaccinationReservations = (from id in RegistrarIds
                                                                     select new VaccinationReservationDataModel
                                                                     {
                                                                         RegistrarId = int.Parse(id),
-                                                                        ReservationDateTime = appintmentDataModel.AppointmentDate
-
+                                                                        
                                                                     }).ToList();
 
-              
 
-               ViewBag.SuccessFailueMessage = _registrationObserver.AddRegistrars(registrars);
+                List<RegistrarsDataModel> registrars = (from id in RegistrarIds
+                                                                    select new RegistrarsDataModel
+                                                                    {
+                                                                        Id = int.Parse(id),
+                                                                        Notified=true
+
+                                                                    }).ToList();
+                foreach(RegistrarsDataModel registrars1 in registrars)
+                {
+                    _registrarService.MarkRegistrarsAsnotified(registrars1);
+                }    
+                
+                TempData["SuccessFailueMessage"] = _registrationObserver.AddRegistrars(VaccinationReservations);
             }
             catch(Exception ex)
             {
-                ViewBag.SuccessFailueMessage = ex.Message;
+                TempData["SuccessFailueMessage"]= ex.Message;
             }
+            return RedirectToAction("AppointmentCreationComplete");
+        }
+        public ActionResult AppointmentCreationComplete()
+        {
+            ViewBag.SuccessFailueMessage = TempData["SuccessFailueMessage"];
             return View();
         }
-
         // GET: VaccinationReservationController/Edit/5
         public ActionResult Edit(int id)
         {

@@ -137,7 +137,7 @@ namespace CovidVaccinationAppointment.Controllers
             return _RegistrarsService.GetById((Int32)(id)) != null;
         }
 
-        public async Task<ActionResult> CallTelephoneGeneratorFunction(string Number)
+        public async Task<ActionResult> CallTelephoneVerifyFunction(string Number)
         {
             TelephoneCheckAPICaller telephoneCheckAPICaller = new TelephoneCheckAPICaller();
             telephoneCheckAPICaller.Number = Number;

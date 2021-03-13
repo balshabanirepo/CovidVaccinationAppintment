@@ -3,31 +3,24 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="@Url.Action("Create","VaccinationReservation")">
-            <table class="table">
-                <tr>
-                    <td> <label asp-for="AppointmentDate" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="AppointmentDate" class="form-control" />
-                    </td>
-                    <td>
-                        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
-                    </td>
-                </tr>
+        <form asp-action="Create" id="formAssignAppointment">
+            <div class="form-group">
+                <label asp-for="AppointmentDate" class="control-label"></label>
 
-                <tr>
-                    
-                    <td>
-                        <input asp-for="RegistrarIds" class="form-control" style="visibility:hidden" />
-                    </td>
-                    <td>
-                        <span asp-validation-for="RegistrarIds" class="text-danger"></span>
-                    </td>
-                    </tr>
-                    </table>
+                <input asp-for="AppointmentDateAsString" class="form-control" />
+
+                <input asp-for="RegistrarIds" class="form-control" style="visibility:hidden" />
+                <label asp-for="VaccinationType" class="control-label"></label>
+                <select asp-items="@ViewBag.VaccinationTypes" id="ddlVaccinationType"></select>
+
+                <input asp-for="VaccinationType" class="form-control" style="visibility:hidden" />
+
+                <span asp-validation-for="RegistrarIds" class="text-danger"></span>
+                <span asp-validation-for="VaccinationType" class="text-danger"></span>
+            </div>
 
             <div class="form-group">
-                <input type="button" value="Create" onclick=" return populateSelected()" class="btn btn-primary" />
+                <input type="button" value="Create" onclick="return populateSelected()" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -38,5 +31,5 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+  
 }

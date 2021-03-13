@@ -8,14 +8,14 @@ namespace DataRepository.ModelMappers
 {
 
     public class VaccinationAppointmentModelMapper
-    {
-        DataBaseGateWay<VaccinationReservationRepository> dataBaseGateWay;
+    { 
+        RepositoryGateWay<VaccinationReservationRepository> dataBaseGateWay;
         public VaccinationAppointmentModelMapper()
         {
-            dataBaseGateWay = new DataBaseGateWay<VaccinationReservationRepository>();
+            dataBaseGateWay = new RepositoryGateWay<VaccinationReservationRepository>();
         }
 
-        public void AddVaccinationType(VaccinationReservationDataModel model)
+        public void AddVaccinationReservation(VaccinationReservationDataModel model)
         {
             VaccinationReservationRepository vaccinationReservation  = new VaccinationReservationRepository();
 
@@ -45,14 +45,14 @@ namespace DataRepository.ModelMappers
 
         public VaccinationReservationDataModel GetById(int id)
         {
-            DataBaseGateWay<RegistrarsRepository> RegistrarsDataBaseGateWay;
-            DataBaseGateWay<VaccinationTypesRepository> VaccinationTypeDataBaseGateWay;
+            RepositoryGateWay<RegistrarsRepository> RegistrarsDataBaseGateWay;
+            RepositoryGateWay<VaccinationTypesRepository> VaccinationTypeDataBaseGateWay;
             RegistrarsRepository registrar;
             VaccinationTypesRepository VaccinationTypes;
 
             VaccinationReservationRepository vaccinationReservation = dataBaseGateWay.GetById(c => c.Id == id);
-            RegistrarsDataBaseGateWay = new DataBaseGateWay<RegistrarsRepository>();
-            VaccinationTypeDataBaseGateWay = new DataBaseGateWay<VaccinationTypesRepository>();
+            RegistrarsDataBaseGateWay = new RepositoryGateWay<RegistrarsRepository>();
+            VaccinationTypeDataBaseGateWay = new RepositoryGateWay<VaccinationTypesRepository>();
 
              registrar = RegistrarsDataBaseGateWay.GetById(c=>c.Id==vaccinationReservation.RegistrarId);
             VaccinationTypes = VaccinationTypeDataBaseGateWay.GetById(c => c.Id == vaccinationReservation.VaccinationTypeId);

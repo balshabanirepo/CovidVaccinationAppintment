@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,23 +20,26 @@ namespace ServicesClasseslibrary.API
     public string Number { get; set; }
     public override async Task<string> CallAPI()
     {
-        string responseData;
-        await this.CheckToken();
-        HttpClient client = new HttpClient();
+           //await base.PrepareToken();
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+            var json = JsonConvert.SerializeObject(new
+            {
+                Number = Number
+            });
        
-        client.BaseAddress = new Uri(_apiUrl);
           
-            HttpResponseMessage response = await client.GetAsync(_apiUrl+ "?Number="+ Number);
+           
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, _apiUrl + "?Number="+Number);
+            //request.Headers.Authorization = new AuthenticationHeaderValue("Token", Token);
 
-        this.response = response;
+          this.response = await httpClient.SendAsync(request);
 
-        responseData = await response.Content.ReadAsStringAsync();
-        return responseData;
-    }
+            var responeData = await response.Content.ReadAsStringAsync();
+            return responeData;
+        }
 
-    public override async Task CheckToken()
-    {
-        await base.PrepareToken();
-    }
+    
 }
 }

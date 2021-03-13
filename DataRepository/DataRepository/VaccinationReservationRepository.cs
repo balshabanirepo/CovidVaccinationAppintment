@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataRepository
 {
-   public  class VaccinationReservationRepository: Model
+   public  class VaccinationReservationRepository: Repository
     {
         public int Id { get; set; }
         [ForeignKey("Registrar")]

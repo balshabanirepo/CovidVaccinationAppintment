@@ -25,8 +25,23 @@ namespace DataRepository.GateWay
             optionsBuilder.UseSqlServer(conn);
          
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 
-       public  DbSet<VaccinationTypesRepository> VaccinationTypes { get; set; }
+        {
+
+            modelBuilder.Entity<VaccinationTypesRepository>().HasKey(o => o.Id);
+            modelBuilder.Entity<RegistrarsRepository>().HasKey(o => o.Id);
+            modelBuilder.Entity<VaccinationReservationRepository>().HasKey(o => o.Id);
+            modelBuilder.Entity<SystemSettingsRepository>().HasKey(o => o.Id);
+
+        }
+    
+    
+
+
+
+
+        public  DbSet<VaccinationTypesRepository> VaccinationTypes { get; set; }
 
         public DbSet<RegistrarsRepository> Registrars { get; set; }
 

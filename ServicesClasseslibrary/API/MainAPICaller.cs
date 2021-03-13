@@ -28,7 +28,7 @@ namespace ServicesClasseslibrary.API
 
         protected string _apiUrl = "";
         protected string Token = "";
-        public abstract Task CheckToken();
+        //public abstract Task CheckToken();
 
 
         public abstract Task<string> CallAPI();

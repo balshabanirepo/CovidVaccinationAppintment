@@ -9,7 +9,12 @@ namespace DataModel
     { 
         [Required]
         public DateTime AppointmentDate { get; set; }
-        [Required]
+
+       
+        public string AppointmentDateAsString { get; set; }
+        [Required(ErrorMessage ="Please select a vaccintationtype")]
+        public int? VaccinationType { get; set; }
+        [Required(ErrorMessage = "Please choose at least one registrar")]
         public string RegistrarIds { get; set; }
     }
 

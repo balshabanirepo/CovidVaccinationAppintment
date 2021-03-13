@@ -17,7 +17,16 @@ namespace ServicesClasseslibrary
         }
         public void EditRegistrar(RegistrarsDataModel registrar)
         {
+            
+
             modelMapper.Edit(registrar);
+        }
+       
+        public void MarkRegistrarsAsnotified(RegistrarsDataModel registrar)
+        {
+            registrar.Notified = true;
+            modelMapper.Notify(registrar);
+               
         }
       
         public List<RegistrarsDataModel> List()

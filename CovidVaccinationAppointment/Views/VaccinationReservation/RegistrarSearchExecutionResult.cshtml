@@ -16,9 +16,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Telephone)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ValidTelephone)
-            </th>
+           
             <th>Give appointment</th>
         </tr>
     </thead>
@@ -36,9 +34,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Telephone)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ValidTelephone)
-                </td>
+                
                 <td>
                     @Html.CheckBoxFor(modelItem => item.GivenAppointment, new { @class = "select-registrar" })
                 </td>
@@ -48,8 +44,8 @@
 </table>
 @if(Model.Count()>0)
 {
- DataModel.AppintmentDataModel appintmentDataModel = new DataModel.AppintmentDataModel();
-@Html.Partial("AssignAppointment", appintmentDataModel)
+    DataModel.AppintmentDataModel appintmentDataModel = new DataModel.AppintmentDataModel { AppointmentDateAsString = DateTime.Now.ToString("dd/MM/yyyy"), VaccinationType = null };
+    @Html.Partial("AssignAppointment", appintmentDataModel)
 }
 
 

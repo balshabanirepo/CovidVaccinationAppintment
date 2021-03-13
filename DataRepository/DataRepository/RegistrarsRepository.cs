@@ -2,7 +2,7 @@
 
 namespace DataRepository
 {
-    public class RegistrarsRepository : Model
+    public class RegistrarsRepository : Repository
     {
         [Key]
         public int Id { get; set; }

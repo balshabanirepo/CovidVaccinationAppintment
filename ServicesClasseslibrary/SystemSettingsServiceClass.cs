@@ -51,7 +51,7 @@ namespace ServicesClasseslibrary
 
             }
 
-            return null;
+            return new SystemSettingsDataModel { Id = 0 };
 
         }
         public void Delete()

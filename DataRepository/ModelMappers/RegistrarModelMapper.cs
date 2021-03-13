@@ -8,10 +8,10 @@ namespace DataRepository.GateWay
 {
    public class RegistrarsModelMapper
     {
-         DataBaseGateWay<RegistrarsRepository> dataBaseGateWay;
+         RepositoryGateWay<RegistrarsRepository> dataBaseGateWay;
         public RegistrarsModelMapper()
              {
-                dataBaseGateWay = new DataBaseGateWay<RegistrarsRepository>();
+                dataBaseGateWay = new RepositoryGateWay<RegistrarsRepository>();
 
              }
         public void AddRegistrar(RegistrarsDataModel model)
@@ -27,10 +27,23 @@ namespace DataRepository.GateWay
         public void Edit(RegistrarsDataModel model)
         {
             RegistrarsRepository Registrars = new RegistrarsRepository();
+            RegistrarsRepository RegistrarsStoredInModel = dataBaseGateWay.GetById(g => g.Id == model.Id);
             Registrars.Id = model.Id;
             Registrars.Name = model.Name;
             Registrars.Telephone = model.Telephone;
-            dataBaseGateWay.Edit(Registrars);
+            Registrars.Notified = model.Notified;
+            dataBaseGateWay.Edit(RegistrarsStoredInModel,Registrars);
+        }
+
+        public void Notify(RegistrarsDataModel model)
+        {
+            RegistrarsRepository Registrars = new RegistrarsRepository();
+            RegistrarsRepository RegistrarsStoredInModel = dataBaseGateWay.GetById(g => g.Id == model.Id);
+            Registrars.Id = RegistrarsStoredInModel.Id;
+            Registrars.Name = RegistrarsStoredInModel.Name;
+            Registrars.Telephone = RegistrarsStoredInModel.Telephone;
+            Registrars.Notified = model.Notified;
+            dataBaseGateWay.Edit(RegistrarsStoredInModel, Registrars);
         }
 
         public void Delete(int id)
@@ -64,7 +77,9 @@ namespace DataRepository.GateWay
                     select new RegistrarsDataModel
                     {
                         Id = r.Id,
-                        Name = r.Name
+                        Name = r.Name,
+                        Telephone=r.Telephone,
+                        Notified=r.Notified
                     }).ToList();
 
         }

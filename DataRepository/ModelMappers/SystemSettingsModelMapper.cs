@@ -11,10 +11,10 @@ namespace DataRepository.ModelMappers
    
     public class SystemSettingsModelMapper
     {
-        DataBaseGateWay<SystemSettingsRepository> dataBaseGateWay;
+        RepositoryGateWay<SystemSettingsRepository> dataBaseGateWay;
         public SystemSettingsModelMapper()
         {
-            dataBaseGateWay = new DataBaseGateWay<SystemSettingsRepository>();
+            dataBaseGateWay = new RepositoryGateWay<SystemSettingsRepository>();
         }
     
 
@@ -32,10 +32,11 @@ namespace DataRepository.ModelMappers
     public void Edit(SystemSettingsDataModel model)
     {
             SystemSettingsRepository SystemSettings = new SystemSettingsRepository();
+            SystemSettingsRepository SystemSettingsStoredInDb = dataBaseGateWay.GetById(g => g.Id == model.Id);
             SystemSettings.Token = model.Token;
             SystemSettings.NotificationType = (byte)model.NotificationType;
             SystemSettings.Id = model.Id;
-            dataBaseGateWay.Edit(SystemSettings);
+            dataBaseGateWay.Edit(SystemSettingsStoredInDb, SystemSettings);
     }
 
     public void Delete(int id)

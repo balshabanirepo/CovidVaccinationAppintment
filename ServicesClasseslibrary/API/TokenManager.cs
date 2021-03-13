@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 {
    public class TokenManager
     {
-        string apiUrlForTokenRetrieve = "http://localhost:65501/api/Home/CheckToken";
+        string apiUrlForTokenRetrieve = "http://localhost:65501/api/TelephoneDirectories/GetToken";
         SystemSettingsServiceClass SystemSettingsServiceClass = new SystemSettingsServiceClass();
 
         public string Token { get; set; }
@@ -31,16 +32,18 @@ using System.Threading.Tasks;
         public async Task<bool> CheckIfTokenExpired()
         {
 
-
-            string apiUrlForPractionerIdCheck = "http://localhost:65501/api/TelephoneDirectories/PhoneByNumber";
+            if(Token==null)
+            {
+                return true;
+            }
+            string apiUrl = "http://localhost:65501/api/TelephoneDirectories/PhoneByNumber";
 
             HttpClient client = new HttpClient();
             client = new HttpClient();
 
-            client.BaseAddress = new Uri(apiUrlForPractionerIdCheck);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+            client.BaseAddress = new Uri(apiUrl);
+            client.DefaultRequestHeaders.Authorization =
+new AuthenticationHeaderValue("Bearer", Token);
 
             var RequestObject = JsonConvert.SerializeObject(new
 
@@ -56,7 +59,7 @@ using System.Threading.Tasks;
                 IDValue = "1111"
             });
 
-            HttpResponseMessage response = await client.PostAsync(apiUrlForPractionerIdCheck+ "?Number=0000",new StringContent(""));
+            HttpResponseMessage response = await client.PostAsync(apiUrl+ "?Number=0000",new StringContent(""));
             return !response.IsSuccessStatusCode;
 
 
@@ -123,10 +126,11 @@ using System.Threading.Tasks;
 
 
 
-            responeDataConverted = JsonConvert.DeserializeObject<Dictionary<string, string>>(responeData);
+            //responeDataConverted = JsonConvert.DeserializeObject<Dictionary<string, string>>(responeData);
 
 
-            Token = responeDataConverted["access_token"];
+            // Token = responeDataConverted["token"];
+            Token = responeData.Substring(10, responeData.Substring(10).IndexOf(",") - 2);
             updateDbTokenField();
             return Token;
           

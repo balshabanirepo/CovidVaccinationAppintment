@@ -10,6 +10,8 @@ namespace DataModel
         public int Id { get; set; }
       [Required]
         public int? RegistrarId { get; set; }
+      
+       
         [Required]
         public int? VaccinationTypeId { get; set; }
         [Required]

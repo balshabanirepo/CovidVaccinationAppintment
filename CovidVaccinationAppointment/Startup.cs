@@ -24,10 +24,10 @@ namespace CovidVaccinationAppointment
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped<IVaccinationTypeServicesClass, VaccinationTypeServicesClass>();
-            services.AddScoped<IRegistrarServiceClass, RegistrarsServiceClass>();
-            services.AddScoped<ISystemSettingsServiceClass, SystemSettingsServiceClass>();
-            services.AddScoped<IRegisrtationObserver, RegistrationObserver>();
+            services.AddSingleton<IVaccinationTypeServicesClass, VaccinationTypeServicesClass>();
+            services.AddSingleton<IRegistrarServiceClass, RegistrarsServiceClass>();
+            services.AddSingleton<ISystemSettingsServiceClass, SystemSettingsServiceClass>();
+            services.AddSingleton<IRegisrtationObserver, RegistrationObserver>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

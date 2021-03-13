@@ -7,7 +7,7 @@ namespace ServicesClasseslibrary
 {
   public  class VaccinationAppointmentClass:IVaccinationAppointmentClass
     {
-        private RegistrarsModelMapper modelMapper = new RegistrarsModelMapper();
+      
 
     }
 }

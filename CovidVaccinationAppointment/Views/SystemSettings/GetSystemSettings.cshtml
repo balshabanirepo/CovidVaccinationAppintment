@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Save">
+        <form asp-action="SaveSystemSettings">
             
            
             <div class="form-group">
@@ -20,7 +20,7 @@
                     <option value="1" selected>By Mail</option>
                     <option value="2">By Phone</option>
                 </select>
-                <input asp-for="NotificationType" class="form-control" style="visibility:visible" />
+                <input asp-for="NotificationType" class="form-control" style="visibility:hidden" />
                 <span asp-validation-for="NotificationType" class="text-danger"></span>
                 <input asp-for="Id" class="form-control" style="visibility:hidden" />
             </div>

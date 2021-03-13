@@ -55,10 +55,12 @@
                     {
                         $('#divValidatinonResult').html("")
                         $("#divValidating").html("validate")
+                        $("#input[type='submit']").attr("disabled","disabled")
                         var loop = setInterval(function () {
                             if ($('#txtprocessed').val() == '1')
                             {
                                 $("#divValidating").html("")
+                                $("#input[type='submit']").removeAttr("disabled")
                                 clearInterval(loop)
                             }
                            

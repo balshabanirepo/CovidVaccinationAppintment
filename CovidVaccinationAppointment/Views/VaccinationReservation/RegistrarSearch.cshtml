@@ -1,7 +1,7 @@
 ﻿
 @model DataModel.RegistrarSearchDataModel
 @{
-   
+
 
     <div class="row">
         <div class="col-md-4">
@@ -18,42 +18,72 @@
                 </div>
             </form>
             @Html.Partial("RegistrarSearchExecutionResult", Model.Registrars)
-            
-           
+
+
         </div>
     </div>
 
 }
 @section Scripts {
-<script>
-    function populateSelected() {
-       
-        var cb = $('.select-registrar')
-        var selected = "", tr, td, registrarId
-        $.each(cb,function (item, index) {
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+    <script>
+        function populateSelected() {
+           
             debugger;
-            var cb = $(index)
-            if (cb.is(":checked")) {
-                tr = cb.closest('tr')
-                td = tr.find(' td:nth-child(1)')
-                registrarId = td.prop("innerText")
-                if (selected == "") {
-                    selected = selected + registrarId
-                }
-                else {
-                    selected = selected +","+registrarId
-                }
-            }
+            var cb = $('.select-registrar')
+            var selected = "", tr, td, registrarId
+            $.each(cb, function (item, index) {
 
+                var cb = $(index)
+                if (cb.is(":checked")) {
+                    tr = cb.closest('tr')
+                    td = tr.find(' td:nth-child(1)')
+                    registrarId = td.prop("innerText")
+                    if (selected == "") {
+                        selected = selected + registrarId
+                    }
+                    else {
+                        selected = selected + "," + registrarId
+                    }
+                }
+
+            })
+            $("#RegistrarIds").val(selected)
+            //alert('2')
+            //$("form").validate();
+            ////alert('3')
+            ////
+
+            //if ($("form").valid()) {
+            //    alert('31')
+               
+            //}
+            $("#formAssignAppointment").submit()
+
+
+        }
+        $(document).ready(function () {
+            $("#AppointmentDateAsString").datepicker({
+                dateFormat: "dd/mm/yy",
+                minDate: new Date(),
+                onSelect: function (text) {
+                    $("#AppointmentDateAsString").val(text)
+                }
+
+            })
+            $("#ddlVaccinationType").change(function () {
+                $("#VaccinationType").val($(this).val() > 0 ? $(this).val() : "")
+
+
+            })
         })
-        $("#RegistrarIds").val(selected)
 
-       
+    </script>
+
     }
-    //$(document).ready(function () {
-    //    $("#AppointmentDate").datepicker({})
-    //})
-    
-</script>
-
-}
