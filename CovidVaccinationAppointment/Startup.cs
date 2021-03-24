@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ServicesClasseslibrary;
+using DataRepository;
 
 namespace CovidVaccinationAppointment
 {
@@ -24,10 +25,12 @@ namespace CovidVaccinationAppointment
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IVaccinationTypeServicesClass, VaccinationTypeServicesClass>();
-            services.AddSingleton<IRegistrarServiceClass, RegistrarsServiceClass>();
-            services.AddSingleton<ISystemSettingsServiceClass, SystemSettingsServiceClass>();
-            services.AddSingleton<IRegisrtationObserver, RegistrationObserver>();
+            services.AddScoped<IVaccinationTypeServicesClass, VaccinationTypeServicesClass>();
+            services.AddScoped<IRegistrarServiceClass, RegistrarsServiceClass>();
+            services.AddScoped<ISystemSettingsServiceClass, SystemSettingsServiceClass>();
+            services.AddScoped<IRegisrtationObserver, RegistrationObserver>();
+            services.AddServicesOnWhichServiceClassLibaryDepend();
+            //services.AddServicesOnWhichModelMapperDepend();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

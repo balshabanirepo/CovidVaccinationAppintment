@@ -7,9 +7,10 @@ using System.Text;
 
 namespace DataRepository.GateWay
 {
-    internal class RepositoryGateWay<TModelRepository>:RecordListInterface<TModelRepository> where TModelRepository : class
+    public class RepositoryGateWay<TModelRepository>:RecordListInterface<TModelRepository> where TModelRepository:class
     {
         DbConext dbConext = new DbConext();
+       
 
 
         internal  void Add(Repository repository)
@@ -27,6 +28,31 @@ namespace DataRepository.GateWay
             
 
          
+        }
+
+        public static explicit operator RepositoryGateWay<TModelRepository>(RepositoryGateWay<Repository> v)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static implicit operator RepositoryGateWay<TModelRepository>(RepositoryGateWay<RegistrarsRepository> v)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static implicit operator RepositoryGateWay<TModelRepository>(RepositoryGateWay<VaccinationReservationRepository> v)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static implicit operator RepositoryGateWay<TModelRepository>(RepositoryGateWay<VaccinationTypesRepository> v)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static implicit operator RepositoryGateWay<TModelRepository>(RepositoryGateWay<SystemSettingsRepository> v)
+        {
+            throw new NotImplementedException();
         }
 
         internal void Edit(Repository repository, Repository withnewvalues)

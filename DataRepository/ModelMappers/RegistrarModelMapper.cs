@@ -3,54 +3,67 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DataRepository.ModelMappers.Interface;
+using DataRepository.ModelMappers;
+using DataRepository.GateWay;
 
-namespace DataRepository.GateWay
+namespace DataRepository.ModelMappers
 {
-   public class RegistrarsModelMapper
+    public class RegistrarsModelMapper : IRegistrarsModelMapper
     {
-         RepositoryGateWay<RegistrarsRepository> dataBaseGateWay;
+        RepositoryGateWay<RegistrarsRepository> _repositoryGateWay;
         public RegistrarsModelMapper()
-             {
-                dataBaseGateWay = new RepositoryGateWay<RegistrarsRepository>();
+        {
+            //dataBaseGateWay = new RepositoryGateWay<RegistrarsRepository>();
+            _repositoryGateWay = new RepositoryGateWay<RegistrarsRepository>();
 
-             }
+        }
+
+        public RegistrarsModelMapper(RepositoryGateWay<Repository> repositoryGateWay)
+            
+        {
+            //_repositoryGateWay =(RepositoryGateWay<RegistrarsRepository>) repositoryGateWay;
+
+
+
+       }
         public void AddRegistrar(RegistrarsDataModel model)
         {
             RegistrarsRepository Registrars = new RegistrarsRepository();
             
             Registrars.Name = model.Name;
             Registrars.Telephone = model.Telephone;
-            dataBaseGateWay.Add(Registrars);
+            _repositoryGateWay.Add(Registrars);
 
         }
 
         public void Edit(RegistrarsDataModel model)
         {
             RegistrarsRepository Registrars = new RegistrarsRepository();
-            RegistrarsRepository RegistrarsStoredInModel = dataBaseGateWay.GetById(g => g.Id == model.Id);
+            RegistrarsRepository RegistrarsStoredInModel = _repositoryGateWay.GetById(g => g.Id == model.Id);
             Registrars.Id = model.Id;
             Registrars.Name = model.Name;
             Registrars.Telephone = model.Telephone;
             Registrars.Notified = model.Notified;
-            dataBaseGateWay.Edit(RegistrarsStoredInModel,Registrars);
+            _repositoryGateWay.Edit(RegistrarsStoredInModel,Registrars);
         }
 
         public void Notify(RegistrarsDataModel model)
         {
             RegistrarsRepository Registrars = new RegistrarsRepository();
-            RegistrarsRepository RegistrarsStoredInModel = dataBaseGateWay.GetById(g => g.Id == model.Id);
+            RegistrarsRepository RegistrarsStoredInModel = _repositoryGateWay.GetById(g => g.Id == model.Id);
             Registrars.Id = RegistrarsStoredInModel.Id;
             Registrars.Name = RegistrarsStoredInModel.Name;
             Registrars.Telephone = RegistrarsStoredInModel.Telephone;
             Registrars.Notified = model.Notified;
-            dataBaseGateWay.Edit(RegistrarsStoredInModel, Registrars);
+            _repositoryGateWay.Edit(RegistrarsStoredInModel, Registrars);
         }
 
         public void Delete(int id)
         {
             RegistrarsRepository Registrars;
-            Registrars= dataBaseGateWay.GetById(c=>c.Id==id);
-            dataBaseGateWay.Delete(Registrars);
+            Registrars= _repositoryGateWay.GetById(c=>c.Id==id);
+            _repositoryGateWay.Delete(Registrars);
 
         }
 
@@ -58,7 +71,7 @@ namespace DataRepository.GateWay
         {
             RegistrarsRepository Registrars  ;
 
-            Registrars= dataBaseGateWay.GetById(c=>c.Id==id);
+            Registrars= _repositoryGateWay.GetById(c=>c.Id==id);
             return new RegistrarsDataModel
             {
                 Id= Registrars.Id,
@@ -72,7 +85,7 @@ namespace DataRepository.GateWay
         {
             
 
-           List<RegistrarsRepository> RegistrarsRepositories= dataBaseGateWay.List();
+           List<RegistrarsRepository> RegistrarsRepositories= _repositoryGateWay.List();
             return (from r in RegistrarsRepositories
                     select new RegistrarsDataModel
                     {

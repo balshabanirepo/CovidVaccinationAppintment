@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Identity\Pages\**" />
+    <Content Remove="Areas\Identity\Pages\**" />
+    <EmbeddedResource Remove="Areas\Identity\Pages\**" />
+    <None Remove="Areas\Identity\Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="bin\Debug\netcoreapp3.1\CovidVaccinationProject.mdf" />
     <None Include="bin\Debug\netcoreapp3.1\CovidVaccinationProject_log.ldf" />
   </ItemGroup>

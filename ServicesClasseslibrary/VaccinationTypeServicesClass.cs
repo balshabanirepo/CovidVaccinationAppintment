@@ -3,12 +3,24 @@ using DataRepository;
 using System;
 using DataRepository.GateWay;
 using System.Collections.Generic;
+using DataRepository.ModelMappers;
+using DataRepository.ModelMappers.Interface;
 
 namespace ServicesClasseslibrary
 {
     public class VaccinationTypeServicesClass: IVaccinationTypeServicesClass
     {
-        private VaccinationTypesModelMapper modelMapper = new VaccinationTypesModelMapper();
+        private IVaccinationTypesModelMapper modelMapper;
+        public VaccinationTypeServicesClass()
+        {
+          
+
+        }
+        public VaccinationTypeServicesClass(IVaccinationTypesModelMapper iVaccinationTypesModelMapper)
+        {
+            modelMapper = iVaccinationTypesModelMapper;
+
+        }
 
         public void AddVaccinationType(VaccinationTypesDataModel vaccination)
         {
@@ -25,7 +37,7 @@ namespace ServicesClasseslibrary
         }
         public List<VaccinationTypesDataModel> List()
         {
-           return modelMapper.list();
+            return modelMapper.list();
           
 
 

@@ -23,9 +23,9 @@ namespace CovidVaccinationAppointment.Controllers
 
         public IActionResult Index()
         {
-            VaccinationTypeServicesClass vaccinationTypeServices = new VaccinationTypeServicesClass();
+            //VaccinationTypeServicesClass vaccinationTypeServices = new VaccinationTypeServicesClass();
           // vaccinationTypeServices.AddVaccinationType(new DataModel.VaccinationTypesDataModel { Name = "Fyzer" });
-           vaccinationTypeServices.List();
+           //vaccinationTypeServices.List();
             return View();
         }
 

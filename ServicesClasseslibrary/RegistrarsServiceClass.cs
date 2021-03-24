@@ -1,5 +1,7 @@
 ﻿using DataModel;
 using DataRepository.GateWay;
+using DataRepository.ModelMappers;
+using DataRepository.ModelMappers.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,8 +10,17 @@ namespace ServicesClasseslibrary
 {
    public class RegistrarsServiceClass: IRegistrarServiceClass
     {
-        private RegistrarsModelMapper modelMapper = new RegistrarsModelMapper();
+        private IRegistrarsModelMapper modelMapper;
+        public RegistrarsServiceClass()
+        {
+            // settingsModelMapper = new SystemSettingsModelMapper();
 
+        }
+        public RegistrarsServiceClass(IRegistrarsModelMapper registrarsModelMapper)
+        {
+            modelMapper = registrarsModelMapper;
+
+        }
         public void AddRegistrar(RegistrarsDataModel registrar)
         {
             modelMapper.AddRegistrar(registrar);

@@ -4,15 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DataRepository.ModelMappers.Interface;
 namespace DataRepository.ModelMappers
 {
 
-    public class VaccinationAppointmentModelMapper
-    { 
-        RepositoryGateWay<VaccinationReservationRepository> dataBaseGateWay;
-        public VaccinationAppointmentModelMapper()
+    public class VaccinationAppointmentModelMapper: IVaccinationAppointmentModelMapper
+    {
+        RepositoryGateWay<VaccinationReservationRepository> _repositoryGateWay;
+              public VaccinationAppointmentModelMapper()
         {
-            dataBaseGateWay = new RepositoryGateWay<VaccinationReservationRepository>();
+            _repositoryGateWay = new RepositoryGateWay<VaccinationReservationRepository>();
         }
 
         public void AddVaccinationReservation(VaccinationReservationDataModel model)
@@ -22,7 +23,7 @@ namespace DataRepository.ModelMappers
             vaccinationReservation.RegistrarId =(int) model.RegistrarId;
             vaccinationReservation.VaccinationTypeId =(int) model.VaccinationTypeId;
             vaccinationReservation.ReservationDateTime = model.ReservationDateTime;
-            dataBaseGateWay.Add(vaccinationReservation);
+            _repositoryGateWay.Add(vaccinationReservation);
             
         }
 
@@ -32,14 +33,14 @@ namespace DataRepository.ModelMappers
             vaccinationReservation.RegistrarId = (int)model.RegistrarId;
             vaccinationReservation.VaccinationTypeId = (int)model.VaccinationTypeId;
             vaccinationReservation.ReservationDateTime = model.ReservationDateTime;
-            dataBaseGateWay.Edit(vaccinationReservation);
+            _repositoryGateWay.Edit(vaccinationReservation);
         }
 
         public void Delete(int id)
         {
             VaccinationTypesRepository vaccinationTypes;
-            VaccinationReservationRepository vaccinationReservation = dataBaseGateWay.GetById(c => c.Id == id);
-            dataBaseGateWay.Delete(vaccinationReservation);
+            VaccinationReservationRepository vaccinationReservation = _repositoryGateWay.GetById(c => c.Id == id);
+            _repositoryGateWay.Delete(vaccinationReservation);
 
         }
 
@@ -50,7 +51,7 @@ namespace DataRepository.ModelMappers
             RegistrarsRepository registrar;
             VaccinationTypesRepository VaccinationTypes;
 
-            VaccinationReservationRepository vaccinationReservation = dataBaseGateWay.GetById(c => c.Id == id);
+            VaccinationReservationRepository vaccinationReservation = _repositoryGateWay.GetById(c => c.Id == id);
             RegistrarsDataBaseGateWay = new RepositoryGateWay<RegistrarsRepository>();
             VaccinationTypeDataBaseGateWay = new RepositoryGateWay<VaccinationTypesRepository>();
 
@@ -72,14 +73,8 @@ namespace DataRepository.ModelMappers
         {
 
 
-            //List<VaccinationTypesRepository> vaccinationTypesRepositories = dataBaseGateWay.List();
-            //return (from r in vaccinationTypesRepositories
-            //        select new VaccinationTypesDataModel
-            //        {
-            //            Id = r.Id,
-            //            Name = r.Name
-            //        }).ToList();
             return null;
+          
         }
     }
 

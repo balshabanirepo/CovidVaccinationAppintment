@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataRepository
+namespace ServicesClasseslibrary
 {
-   public interface Repository 
+    public interface ISystemSettingsServiceClass
     {
+
     }
 }

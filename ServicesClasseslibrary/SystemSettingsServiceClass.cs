@@ -1,5 +1,6 @@
 ﻿using DataModel;
 using DataRepository.ModelMappers;
+using DataRepository.ModelMappers.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,12 +9,17 @@ namespace ServicesClasseslibrary
 {
     public class SystemSettingsServiceClass : ISystemSettingsServiceClass
     {
-        private SystemSettingsModelMapper settingsModelMapper;
+        private ISystemSettingsModelMapper settingsModelMapper;
 
 
         public SystemSettingsServiceClass()
         {
-            settingsModelMapper = new SystemSettingsModelMapper();
+           // settingsModelMapper = new SystemSettingsModelMapper();
+
+        }
+        public SystemSettingsServiceClass(ISystemSettingsModelMapper iSystemSettingsModelMapper)
+        {
+            settingsModelMapper= iSystemSettingsModelMapper;
 
         }
         public void SaveSystemSettings(SystemSettingsDataModel systemSettings)
