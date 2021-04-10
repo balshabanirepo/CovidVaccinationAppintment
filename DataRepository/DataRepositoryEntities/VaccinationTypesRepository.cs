@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using DataRepository.GateWay;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataRepository.DataRepositoryEntities
@@ -11,6 +13,9 @@ namespace DataRepository.DataRepositoryEntities
 
         public virtual IEnumerable<VaccinationReservationRepository> VaccinationReservations { get; set; }
 
-
+        public static explicit operator VaccinationTypesRepository(RepositoryGateWay<Repository> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
