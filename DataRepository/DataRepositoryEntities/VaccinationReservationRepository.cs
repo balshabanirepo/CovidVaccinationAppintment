@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DataRepository
+namespace DataRepository.DataRepositoryEntities
 {
-   public  class VaccinationReservationRepository: Repository
+   public  class VaccinationReservationRepository:IRepository
     {
         public int Id { get; set; }
         [ForeignKey("Registrar")]

@@ -14,18 +14,22 @@ namespace CovidVaccinationAppointment.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-     
+        private readonly IVaccinationTypeServicesClass _vaccinationTypeServices;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> logger,IVaccinationTypeServicesClass vaccinationTypeServices)
         { 
             _logger = logger;
+            _vaccinationTypeServices = vaccinationTypeServices;
         }
+
+
 
         public IActionResult Index()
         {
-            VaccinationTypeServicesClass vaccinationTypeServices = new VaccinationTypeServicesClass();
-          // vaccinationTypeServices.AddVaccinationType(new DataModel.VaccinationTypesDataModel { Name = "Fyzer" });
-           vaccinationTypeServices.List();
+            //VaccinationTypeServicesClass vaccinationTypeServices = new VaccinationTypeServicesClass();
+            // vaccinationTypeServices.AddVaccinationType(new DataModel.VaccinationTypesDataModel { Name = "Fyzer" });
+            _vaccinationTypeServices.list();
             return View();
         }
 

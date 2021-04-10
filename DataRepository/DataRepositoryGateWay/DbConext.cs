@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataRepository.DataRepositoryEntities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 

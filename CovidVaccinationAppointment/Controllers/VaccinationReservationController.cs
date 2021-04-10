@@ -47,7 +47,7 @@ namespace CovidVaccinationAppointment.Controllers
             {
 
                 registrarSearchDataModel.Registrars = _registrarService.List().Where(w =>( w.Name.Contains(registrarSearchDataModel.SearchText) || w.Telephone.Contains(registrarSearchDataModel.SearchText))&&!w.Notified).ToList();
-                List<VaccinationTypesDataModel> vaccinationTypes = _vaccinationTypeServicesClass.List();
+                List<VaccinationTypesDataModel> vaccinationTypes = _vaccinationTypeServicesClass.list();
                 vaccinationTypes.Add(new VaccinationTypesDataModel { Id = 0, Name = "Please Select" });
                 SelectList VaccinationTypes = new SelectList(vaccinationTypes, "Id", "Name","0");
                

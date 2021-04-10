@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataRepository
+namespace DataRepository.DataRepositoryEntities
 {
-   public class SystemSettingsRepository: Repository
+   public class SystemSettingsRepository:IRepository
     {
         public int Id { get; set; }
         public string Token { get; set; }

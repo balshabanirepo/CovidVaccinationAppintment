@@ -1,4 +1,5 @@
 ﻿using DataModel;
+using DataRepository.DataRepositoryEntities;
 using DataRepository.GateWay;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace DataRepository.ModelMappers
             vaccinationReservation.RegistrarId = (int)model.RegistrarId;
             vaccinationReservation.VaccinationTypeId = (int)model.VaccinationTypeId;
             vaccinationReservation.ReservationDateTime = model.ReservationDateTime;
-            dataBaseGateWay.Edit(vaccinationReservation);
+            dataBaseGateWay.Edit(vaccinationReservation,null);
         }
 
         public void Delete(int id)

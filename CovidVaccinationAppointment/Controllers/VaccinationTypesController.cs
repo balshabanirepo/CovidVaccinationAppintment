@@ -12,17 +12,17 @@ namespace CovidVaccinationAppointment.Controllers
 {
     public class VaccinationTypesController : Controller
     {
-        private readonly ServicesClasseslibrary.VaccinationTypeServicesClass vaccinationTypeServices ;
+        private readonly IVaccinationTypeServicesClass vaccinationTypeServices ;
 
-        public VaccinationTypesController(IVaccinationTypeServicesClass VaccinationTypeServices)
+        public VaccinationTypesController(IVaccinationTypeServicesClass pVaccinationTypeServices)
         {
-            vaccinationTypeServices =(VaccinationTypeServicesClass) VaccinationTypeServices;
+            vaccinationTypeServices = pVaccinationTypeServices;
         }
 
         // GET: VaccinationTypes
         public IActionResult Index()
         {
-            return View(vaccinationTypeServices.List());
+            return View(vaccinationTypeServices.list());
         }
 
         // GET: VaccinationTypes/Details/5
@@ -43,7 +43,7 @@ namespace CovidVaccinationAppointment.Controllers
         {
             if (ModelState.IsValid)
             {
-                vaccinationTypeServices.AddVaccinationType(vaccinationType);
+                vaccinationTypeServices.AddVaccinationTypes(vaccinationType);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -78,7 +78,7 @@ namespace CovidVaccinationAppointment.Controllers
             {
                 try
                 {
-                    vaccinationTypeServices.EditVaccinationType(vaccinationType);
+                    vaccinationTypeServices.Edit(vaccinationType);
                    
                 }
                 catch (DbUpdateConcurrencyException)
@@ -117,7 +117,7 @@ namespace CovidVaccinationAppointment.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             VaccinationTypesDataModel model = vaccinationTypeServices.GetById((int)id);
-            vaccinationTypeServices.DeleteVaccinationType(id);
+            vaccinationTypeServices.Delete(id);
 
             return RedirectToAction(nameof(Index));
         }

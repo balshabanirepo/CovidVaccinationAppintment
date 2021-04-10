@@ -10,13 +10,12 @@ namespace ServicesClasseslibrary
     {
         private RegistrarsModelMapper modelMapper;
         List<VaccinationReservationDataModel> VaccinationReservations;
-        
+        private readonly ISystemSettingsServiceClass _systemSettingsServiceClass;
     
-        public RegistrationObserver()
+        public RegistrationObserver(ISystemSettingsServiceClass systemSettingsServiceClass)
         {
-            modelMapper = new RegistrarsModelMapper();
-            VaccinationReservations = new List<VaccinationReservationDataModel>();
-           
+
+            _systemSettingsServiceClass = systemSettingsServiceClass;
         }
 
         public void AddRegistrar(VaccinationReservationDataModel registrar)
@@ -42,13 +41,13 @@ namespace ServicesClasseslibrary
         private string NotifyRegistrar(List<VaccinationReservationDataModel> VaccinationReservatitions)
         {
 
-            List<RegistrarsDataModel> registrars;
+            
 
 
             Inotifier notifier;
             SystemSettingsDataModel systemSettings;
-            SystemSettingsServiceClass settingsServiceClass = new SystemSettingsServiceClass();
-             systemSettings = settingsServiceClass.GetSystemSettings();
+            //SystemSettingsServiceClass settingsServiceClass = new SystemSettingsServiceClass();
+             systemSettings = _systemSettingsServiceClass.GetSystemSettings();
             if(systemSettings!=null)
             {
                 if (systemSettings.NotificationType == 1)

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataRepository
 {
-   public interface Repository 
+   public interface IRepository
     {
     }
 }

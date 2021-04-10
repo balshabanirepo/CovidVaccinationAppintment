@@ -14,11 +14,11 @@ namespace CovidVaccinationAppointment.Controllers
 {
     public class SystemSettingsController : Controller
     {
-        private readonly ServicesClasseslibrary.SystemSettingsServiceClass _SystemSettingsServiceClass;
+        private readonly  ISystemSettingsServiceClass _SystemSettingsServiceClass;
 
         public SystemSettingsController(ISystemSettingsServiceClass systemSettingsService)
         {
-            _SystemSettingsServiceClass = (SystemSettingsServiceClass)systemSettingsService;
+            _SystemSettingsServiceClass = systemSettingsService;
         }
 
         // GET: SystemSettings

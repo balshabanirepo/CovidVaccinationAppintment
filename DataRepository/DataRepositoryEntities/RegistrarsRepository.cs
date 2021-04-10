@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DataRepository
+namespace DataRepository.DataRepositoryEntities
 {
-    public class RegistrarsRepository : Repository
+    public class RegistrarsRepository:IRepository
     {
         [Key]
         public int Id { get; set; }

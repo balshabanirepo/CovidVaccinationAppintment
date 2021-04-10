@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DataRepository
+namespace DataRepository.DataRepositoryEntities
 {
-   public  class VaccinationTypesRepository: Repository
+   public  class VaccinationTypesRepository:IRepository
     {
         [Key]
         public int Id { get; set; }

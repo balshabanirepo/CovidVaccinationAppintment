@@ -12,7 +12,7 @@ using System.Threading.Tasks;
    public class TokenManager
     {
         string apiUrlForTokenRetrieve = "http://localhost:65501/api/TelephoneDirectories/GetToken";
-        SystemSettingsServiceClass SystemSettingsServiceClass = new SystemSettingsServiceClass();
+        //SystemSettingsOperationsClass SystemSettingsServiceClass = new SystemSettingsOperationsClass();
 
         public string Token { get; set; }
 
@@ -22,11 +22,11 @@ using System.Threading.Tasks;
         public void ReadTokenValueFromDb()
         {
 
-          SystemSettingsDataModel settingsDataModel=  SystemSettingsServiceClass.GetSystemSettings();
-            if (settingsDataModel != null)
-            {
-                Token = settingsDataModel.Token;
-            }
+          //SystemSettingsDataModel settingsDataModel=  SystemSettingsServiceClass.GetSystemSettings();
+          //  if (settingsDataModel != null)
+          //  {
+          //      Token = settingsDataModel.Token;
+          //  }
         }
 
         public async Task<bool> CheckIfTokenExpired()

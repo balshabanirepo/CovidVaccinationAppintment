@@ -28,6 +28,7 @@ namespace CovidVaccinationAppointment
             services.AddSingleton<IRegistrarServiceClass, RegistrarsServiceClass>();
             services.AddSingleton<ISystemSettingsServiceClass, SystemSettingsServiceClass>();
             services.AddSingleton<IRegisrtationObserver, RegistrationObserver>();
+            services.AddinterfacesonWhichServiceClassLibraryDepend();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
