@@ -13,9 +13,6 @@ namespace DataRepository.DataRepositoryEntities
 
         public virtual IEnumerable<VaccinationReservationRepository> VaccinationReservations { get; set; }
 
-        public static explicit operator VaccinationTypesRepository(RepositoryGateWay<Repository> v)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }
