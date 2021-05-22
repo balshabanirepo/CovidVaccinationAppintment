@@ -5,18 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\Identity\Pages\**" />
-    <Content Remove="Areas\Identity\Pages\**" />
-    <EmbeddedResource Remove="Areas\Identity\Pages\**" />
-    <None Remove="Areas\Identity\Pages\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="bin\Debug\netcoreapp3.1\CovidVaccinationProject.mdf" />
-    <None Include="bin\Debug\netcoreapp3.1\CovidVaccinationProject_log.ldf" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -39,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\Debug\netcoreapp3.1\" />
   </ItemGroup>
 
 </Project>
