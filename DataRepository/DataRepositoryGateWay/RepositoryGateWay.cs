@@ -9,7 +9,9 @@ namespace DataRepository.GateWay
 {
     internal class RepositoryGateWay<TModelRepository>  where TModelRepository : class
     {
-        DbConext dbConext = new DbConext();
+        DbConext dbConext = ContextGateway.GetContextInstance();
+
+       
 
 
       

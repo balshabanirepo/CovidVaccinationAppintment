@@ -11,10 +11,13 @@ namespace DataRepository.DataRepositoryEntities.DataRepoistoryEntityOperationsCl
         public class VaccinationTypesOperationsClass : VaccinationTypesOperationsInterface
  
     {
-        RepositoryGateWay<VaccinationTypesRepository> dataBaseGateWay;
+        //RepositoryGateWay<VaccinationTypesRepository> dataBaseGateWay;
+        ContextGateway gateway;
         public VaccinationTypesOperationsClass()
         {
-            dataBaseGateWay = new RepositoryGateWay<VaccinationTypesRepository>();
+            // dataBaseGateWay = new RepositoryGateWay<VaccinationTypesRepository>();
+             gateway = new ContextGateway();
+            //ContextGateway.GetContextInstance();
         }
 
 
@@ -24,26 +27,26 @@ namespace DataRepository.DataRepositoryEntities.DataRepoistoryEntityOperationsCl
 
             VaccinationType.Id = model.Id;
             VaccinationType.Name = model.Name;
-
-            dataBaseGateWay.Add(VaccinationType);
+            gateway.VaccinationTypes.Add(VaccinationType);
+           // dataBaseGateWay.Add(VaccinationType);
 
         }
 
         public void Edit(VaccinationTypesDataModel model)
         {
             VaccinationTypesRepository VaccinationType = new VaccinationTypesRepository();
-            VaccinationTypesRepository VaccinationTypeStoredInDb = dataBaseGateWay.GetById(g => g.Id == model.Id);
+            VaccinationTypesRepository VaccinationTypeStoredInDb = gateway.VaccinationTypes.GetById(g => g.Id == model.Id);
             VaccinationType.Id = model.Id;
             VaccinationType.Name = model.Name;
+            gateway.VaccinationTypes.Edit(VaccinationTypeStoredInDb, VaccinationType);
            
-            dataBaseGateWay.Edit(VaccinationTypeStoredInDb, VaccinationType);
         }
 
         public void Delete(int id)
         {
 
-            VaccinationTypesRepository VaccinationType = dataBaseGateWay.GetById(c => c.Id == id);
-            dataBaseGateWay.Delete(VaccinationType);
+            VaccinationTypesRepository VaccinationType = gateway.VaccinationTypes.GetById(c => c.Id == id);
+            gateway.VaccinationTypes.Delete(VaccinationType);
 
         }
 
@@ -51,7 +54,7 @@ namespace DataRepository.DataRepositoryEntities.DataRepoistoryEntityOperationsCl
         {
 
 
-            VaccinationTypesRepository VaccinationType = dataBaseGateWay.GetById(c => c.Id == id);
+            VaccinationTypesRepository VaccinationType = gateway.VaccinationTypes.GetById(c => c.Id == id);
 
             return new VaccinationTypesDataModel { Id = VaccinationType.Id, Name = VaccinationType.Name };
 
@@ -62,7 +65,7 @@ namespace DataRepository.DataRepositoryEntities.DataRepoistoryEntityOperationsCl
         {
 
 
-            List<VaccinationTypesRepository> VaccinationTypeRepositories = dataBaseGateWay.List();
+            List<VaccinationTypesRepository> VaccinationTypeRepositories = gateway.VaccinationTypes.List();
             return (from r in VaccinationTypeRepositories
                     select new VaccinationTypesDataModel
                     {
