@@ -21,6 +21,7 @@ namespace CovidVaccinationAppointment.Controllers
         { 
             _logger = logger;
             _vaccinationTypeServices = vaccinationTypeServices;
+
         }
 
 
