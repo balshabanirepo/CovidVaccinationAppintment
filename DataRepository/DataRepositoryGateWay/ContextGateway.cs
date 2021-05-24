@@ -63,6 +63,7 @@ namespace DataRepository.GateWay
         public static void Commit()
         {
             _transaction.Commit();
+
         }
     }
 }
