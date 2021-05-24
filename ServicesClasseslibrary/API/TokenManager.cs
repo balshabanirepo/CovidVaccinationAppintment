@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 {
    public class TokenManager
     {
-        string apiUrlForTokenRetrieve = "http://localhost:65501/api/TelephoneDirectories/GetToken";
+        string apiUrlForTokenRetrieve = "http://localhost:65501/api/Home/GenerateNewToken";
         //SystemSettingsOperationsClass SystemSettingsServiceClass = new SystemSettingsOperationsClass();
-
+        public ISystemSettingsServiceClass systemSettingsServiceClass { get; set; }
         public string Token { get; set; }
 
         //private UnitOfWork unitOfWork;
@@ -21,12 +21,13 @@ using System.Threading.Tasks;
         //Model.SystemConfiguration systemConfiguration;
         public void ReadTokenValueFromDb()
         {
+            SystemSettingsDataModel settingsDataModel=  systemSettingsServiceClass.GetSystemSettings();
 
-          //SystemSettingsDataModel settingsDataModel=  SystemSettingsServiceClass.GetSystemSettings();
-          //  if (settingsDataModel != null)
-          //  {
-          //      Token = settingsDataModel.Token;
-          //  }
+
+            if (settingsDataModel != null)
+            {
+                Token = settingsDataModel.Token;
+            }
         }
 
         public async Task<bool> CheckIfTokenExpired()
@@ -42,25 +43,24 @@ using System.Threading.Tasks;
             client = new HttpClient();
 
             client.BaseAddress = new Uri(apiUrl);
-            client.DefaultRequestHeaders.Authorization =
-new AuthenticationHeaderValue("Bearer", Token);
+       
 
-            var RequestObject = JsonConvert.SerializeObject(new
+            //var RequestObject = JsonConvert.SerializeObject(new
 
-            //    HPISRequest
+            ////    HPISRequest
 
 
-            //    ServiceKey= "SCFHS"
+            ////    ServiceKey= "SCFHS"
 
-            //,
-            //    PractitionerIdentity = newPractitionerIdentity
-            {
-                Number = "Number",
-                IDValue = "1111"
-            });
+            ////,
+            ////    PractitionerIdentity = newPractitionerIdentity
+            //{
+            //    Number = "Number",
+            //    IDValue = "1111"
+            //});
 
-            HttpResponseMessage response = await client.PostAsync(apiUrl+ "?Number=0000",new StringContent(""));
-            return !response.IsSuccessStatusCode;
+            HttpResponseMessage response = await client.PostAsync(apiUrl+ "?Number=0000&Token=Token",new StringContent(""));
+            return response.StatusCode == System.Net.HttpStatusCode.Unauthorized;
 
 
 
@@ -70,20 +70,16 @@ new AuthenticationHeaderValue("Bearer", Token);
 
         public void updateDbTokenField()
         {
-            //if (systemConfiguration == null)
-            //{
-            //    return;
-            //}
-            //try
-            //{
-            //    systemConfiguration.APIToken = Token;
-            //    unitOfWork.SystemConfigurationRepository.Update(systemConfiguration);
-            //    unitOfWork.Save();
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                SystemSettingsDataModel systemSettingsDataModel = new SystemSettingsDataModel { Token = Token };
+                systemSettingsServiceClass.SaveSystemSettings(systemSettingsDataModel);
+            }
 
-            //}
+            catch (Exception ex)
+            {
+
+            }
 
         }
         public async Task<string> GenerateNewToken()

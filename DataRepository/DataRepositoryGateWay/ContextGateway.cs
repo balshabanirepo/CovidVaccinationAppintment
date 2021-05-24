@@ -1,4 +1,5 @@
 ﻿using DataRepository.DataRepositoryEntities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -16,10 +17,13 @@ namespace DataRepository.GateWay
 
         public  RepositoryGateWay<RegistrarsRepository> Registrars { get; set; }
 
+        public RepositoryGateWay<SystemSettingsRepository> SystemSettings { get; set; }
+
         public ContextGateway()
         {
             VaccinationTypes = new RepositoryGateWay<VaccinationTypesRepository>();
             Registrars = new RepositoryGateWay<RegistrarsRepository>();
+            SystemSettings= new RepositoryGateWay<SystemSettingsRepository>();
         }
       
         internal static DbConext GetContextInstance()

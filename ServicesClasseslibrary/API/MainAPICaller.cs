@@ -11,16 +11,18 @@ namespace ServicesClasseslibrary.API
     {
        private TokenManager tokenManager;
 
-
+        public ISystemSettingsServiceClass systemSettingsServiceClass { get; set; }
         protected async Task PrepareToken()
         {
-            tokenManager = new TokenManager();
+            tokenManager = new TokenManager { systemSettingsServiceClass = systemSettingsServiceClass };
+          
             tokenManager.ReadTokenValueFromDb();
             if (await tokenManager.CheckIfTokenExpired())
             {
-                await tokenManager.GenerateNewToken();
 
+                await tokenManager.GenerateNewToken();
             }
+           
             Token = tokenManager.Token;
 
         }

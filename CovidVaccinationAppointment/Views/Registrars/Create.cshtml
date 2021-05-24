@@ -46,7 +46,7 @@
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
         <script>
-    var telephoneCheckerAPIUrl= '@Url.Action("CallTelephoneGeneratorFunction", "Registrars")'
+    var telephoneCheckerAPIUrl= '@Url.Action("CallTelephoneVerifyFunction", "Registrars")'
 
             $(function () {
                 $('#Telephone').change(
@@ -74,10 +74,10 @@
                                   })
                                     .done(function (html)
                            {
-                        //                debugger;
+                                       debugger;
                         //               // $('#txtprocessed').val('1')
                                         $("#divValidating").html("")
-                                     if (html.success.isSuccessStatusCode) {
+                                     if (html.success.statusCode==200) {
                                     
                                       $("#ValidTelephone").val('1')
                                       }

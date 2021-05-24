@@ -17,10 +17,13 @@ namespace ServicesClasseslibrary.API
 
     }
 
-    public string Number { get; set; }
-    public override async Task<string> CallAPI()
+         public string Number { get; set; }
+   
+
+        public override async Task<string> CallAPI()
     {
-           //await base.PrepareToken();
+          
+           await base.PrepareToken();
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 
@@ -31,7 +34,8 @@ namespace ServicesClasseslibrary.API
        
           
            
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, _apiUrl + "?Number="+Number);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, _apiUrl + "?Number="+Number+"&Token="+Token+"7");
+            
             //request.Headers.Authorization = new AuthenticationHeaderValue("Token", Token);
 
           this.response = await httpClient.SendAsync(request);

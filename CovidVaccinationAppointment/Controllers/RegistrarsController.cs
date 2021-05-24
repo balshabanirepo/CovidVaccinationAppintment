@@ -10,6 +10,7 @@ using DataRepository.GateWay;
 using ServicesClasseslibrary;
 using DataModel;
 using ServicesClasseslibrary.API;
+using DataRepository.Interface.DataRepoistoryEntityOperationsInterface;
 
 namespace CovidVaccinationAppointment.Controllers
 {
@@ -18,12 +19,15 @@ namespace CovidVaccinationAppointment.Controllers
 
         RegistrarsServiceClass _RegistrarsService ;
         RegistrationObserver registrationObserver;
+        private readonly ISystemSettingsServiceClass _systemSettingsServiceClass;
 
-        public RegistrarsController(IRegistrarServiceClass RegistrarsService,IRegisrtationObserver RegistrationObserver)
+        public RegistrarsController(IRegistrarServiceClass RegistrarsService,IRegisrtationObserver RegistrationObserver, ISystemSettingsServiceClass systemSettingsServiceClass)
         {
             _RegistrarsService = (RegistrarsServiceClass)RegistrarsService;
             registrationObserver = (RegistrationObserver)RegistrationObserver;
-            
+            _systemSettingsServiceClass = systemSettingsServiceClass;
+
+
 
 
         }
@@ -140,6 +144,7 @@ namespace CovidVaccinationAppointment.Controllers
         public async Task<ActionResult> CallTelephoneVerifyFunction(string Number)
         {
             TelephoneCheckAPICaller telephoneCheckAPICaller = new TelephoneCheckAPICaller();
+            telephoneCheckAPICaller.systemSettingsServiceClass= _systemSettingsServiceClass;
             telephoneCheckAPICaller.Number = Number;
 
             string responeData;
