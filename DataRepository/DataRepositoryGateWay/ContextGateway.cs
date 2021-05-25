@@ -10,30 +10,24 @@ using System.Text;
 
 namespace DataRepository.GateWay
 {
-   internal class ContextGateway
+   public class ContextGateway: IContextGateWay
     {
-        private static DbConext dbConext;
+       
         public  RepositoryGateWay<VaccinationTypesRepository> VaccinationTypes { get; set; }
 
         public  RepositoryGateWay<RegistrarsRepository> Registrars { get; set; }
 
         public RepositoryGateWay<SystemSettingsRepository> SystemSettings { get; set; }
-
+        private static DbConext dbConext;
         public ContextGateway()
         {
             VaccinationTypes = new RepositoryGateWay<VaccinationTypesRepository>();
             Registrars = new RepositoryGateWay<RegistrarsRepository>();
             SystemSettings= new RepositoryGateWay<SystemSettingsRepository>();
+           
         }
+       
       
-        internal static DbConext GetContextInstance()
-        {
-            if (dbConext == null)
-            {
-                dbConext = new DbConext();
-            }
-           return dbConext;
-        }
 
         //private ContextGateway() { }
 
@@ -42,25 +36,25 @@ namespace DataRepository.GateWay
 
 
 
-        public static void CreateDatabaseTransaction()
+        public  void CreateDatabaseTransaction()
         {
-            GetContextInstance();
+            dbConext = DbConext.GetContextInstance();
             _transaction = dbConext.Database.BeginTransaction();
         }
 
 
 
-        public static void Rollback()
+        public  void Rollback()
         {
             _transaction.Rollback();
         }
 
-        public static  void Dispose()
+        public   void Dispose()
         {
             _transaction.Dispose();
         }
 
-        public static void Commit()
+        public  void Commit()
         {
             _transaction.Commit();
 

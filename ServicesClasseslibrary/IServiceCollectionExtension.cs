@@ -1,4 +1,5 @@
-﻿using DataRepository.DataRepositoryEntities.DataRepoistoryEntityOperationsClasses;
+﻿using DataRepository;
+using DataRepository.DataRepositoryEntities.DataRepoistoryEntityOperationsClasses;
 using DataRepository.Interface.DataRepoistoryEntityOperationsInterface;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,7 +15,7 @@ namespace ServicesClasseslibrary
             services.AddSingleton<SystemSettingsOperationsInterface, SystemSettingsOperationsClass>();
             services.AddSingleton<VaccinationTypesOperationsInterface, VaccinationTypesOperationsClass>();
             services.AddSingleton<RegistrarsOperationsInterface, RegistrarsOperationsClass>();
-           
+            services.AddinterfacesonDataRepositoryDepends();
             return services;
         }
     }

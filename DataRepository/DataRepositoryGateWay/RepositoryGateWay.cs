@@ -7,9 +7,9 @@ using System.Text;
 
 namespace DataRepository.GateWay
 {
-    internal class RepositoryGateWay<TModelRepository>  where TModelRepository : class
+    public class RepositoryGateWay<TModelRepository>  where TModelRepository : class
     {
-        DbConext dbConext = ContextGateway.GetContextInstance();
+        DbConext dbConext = DbConext.GetContextInstance();
 
        
 

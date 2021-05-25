@@ -5,15 +5,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+
+
+
 namespace DataRepository.DataRepositoryEntities.DataRepoistoryEntityOperationsClasses
 {
     public class SystemSettingsOperationsClass : SystemSettingsOperationsInterface
     {
 
-        ContextGateway dataBaseGateWay;
-        public SystemSettingsOperationsClass()
+
+        private IContextGateWay dataBaseGateWay;
+        public SystemSettingsOperationsClass(IContextGateWay contextGateWay)
         {
-            dataBaseGateWay = new ContextGateway();
+            dataBaseGateWay =  contextGateWay;
         }
 
 

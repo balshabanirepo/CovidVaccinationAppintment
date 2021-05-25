@@ -6,17 +6,18 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
+
 namespace DataRepository.DataRepositoryEntities.DataRepoistoryEntityOperationsClasses
 {
         public class VaccinationTypesOperationsClass : VaccinationTypesOperationsInterface
  
     {
         //RepositoryGateWay<VaccinationTypesRepository> dataBaseGateWay;
-        ContextGateway gateway;
-        public VaccinationTypesOperationsClass()
+        IContextGateWay gateway;
+        public VaccinationTypesOperationsClass(IContextGateWay contextGateWay )
         {
             // dataBaseGateWay = new RepositoryGateWay<VaccinationTypesRepository>();
-             gateway = new ContextGateway();
+            gateway = contextGateWay;
             //ContextGateway.GetContextInstance();
         }
 

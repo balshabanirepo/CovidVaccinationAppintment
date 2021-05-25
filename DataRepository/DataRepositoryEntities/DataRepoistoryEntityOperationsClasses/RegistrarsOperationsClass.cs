@@ -1,4 +1,5 @@
 ﻿using DataModel;
+
 using DataRepository.GateWay;
 using DataRepository.Interface.DataRepoistoryEntityOperationsInterface;
 using System;
@@ -10,12 +11,12 @@ namespace DataRepository.DataRepositoryEntities.DataRepoistoryEntityOperationsCl
 {
     public class RegistrarsOperationsClass : RegistrarsOperationsInterface
     {
-        ContextGateway gateway;
+       private IContextGateWay gateway;
 
-        public RegistrarsOperationsClass()
+        public RegistrarsOperationsClass(IContextGateWay contextGateWay)
         {
             //.GetContextInstance();
-            gateway = new ContextGateway();
+            gateway = contextGateWay;
         }
         public void AddRegistrar(RegistrarsDataModel model)
         {
