@@ -10,6 +10,7 @@ using ServicesClasseslibrary;
 
 namespace CovidVaccinationAppointment.Controllers
 {
+    //[ExceptionFilter]
     public class VaccinationTypesController : Controller
     {
         private readonly IVaccinationTypeServicesClass vaccinationTypeServices ;
@@ -22,6 +23,8 @@ namespace CovidVaccinationAppointment.Controllers
         // GET: VaccinationTypes
         public IActionResult Index()
         {
+            var x = 0;
+            int y = 1 / x;
             return View(vaccinationTypeServices.list());
         }
 

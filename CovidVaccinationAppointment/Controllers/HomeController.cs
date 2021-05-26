@@ -33,6 +33,15 @@ namespace CovidVaccinationAppointment.Controllers
             return View();
         }
 
+        public IActionResult ExceptionHandler(string ErrorMessage)
+        {
+
+            ViewBag.ErrorMessage = ErrorMessage;
+            return View("ErrorMessage");
+
+
+        }
+
         public IActionResult Privacy()
         {
             return View();
