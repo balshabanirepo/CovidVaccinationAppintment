@@ -91,22 +91,11 @@ namespace CovidVaccinationAppointment.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
+                
                     _RegistrarsService.EditRegistrar(registrarsRepository);
 
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RegistrarsRepositoryExists(registrarsRepository.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+              
+             
                 return RedirectToAction(nameof(Index));
             }
             return View(registrarsRepository);

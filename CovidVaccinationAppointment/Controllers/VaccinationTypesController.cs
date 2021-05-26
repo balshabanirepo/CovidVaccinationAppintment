@@ -23,8 +23,7 @@ namespace CovidVaccinationAppointment.Controllers
         // GET: VaccinationTypes
         public IActionResult Index()
         {
-            var x = 0;
-            int y = 1 / x;
+         
             return View(vaccinationTypeServices.list());
         }
 
@@ -76,27 +75,14 @@ namespace CovidVaccinationAppointment.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(VaccinationTypesDataModel vaccinationType)
         {
-           
+
             if (ModelState.IsValid)
             {
-                try
-                {
-                    vaccinationTypeServices.Edit(vaccinationType);
-                   
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!VaccinationTypesRepositoryExists(vaccinationType.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                vaccinationTypeServices.Edit(vaccinationType);
+
                 return RedirectToAction(nameof(Index));
             }
+            
             return View(vaccinationType);
         }
 
