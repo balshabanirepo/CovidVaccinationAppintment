@@ -2,7 +2,67 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">MVc App with design priniciples and patterns applied</h1>
+<div class="text-left">
+    <p>
+        MVc App with design priniciples and patterns applied
+        <ol>
+
+            <li>
+                The idea of the program is very simple,
+
+                which is to
+                <ol>
+                    <li>
+                        identify the types of vaccines
+                    </li>
+                    <li>
+                        record those who want to be vaccinated,
+                    </li>
+                    <li>
+                        schedule and report to the registrars.
+                        (Currently, the notification does not work, but only a message shows that it will be reported by phone or mail)
+                    </li>
+                </ol>
+            </li>
+            <li>
+                The reason why the software was simplified is that I was aiming through it to apply some design patterns and design principles
+                <ol>
+                    <li>
+                        The pattern used for storage purposes is the Repository   Pattern
+                    </li>
+                    <li>
+                        -The pattern used for defining various reporting mechanisms is the Adapter Pattern
+                    </li>
+                    <li>
+                        -The pattern used for defining for notifying registrars is the Observer Pattern
+                    </li>
+                </ol>
+            </li>
+            <li>
+                Notes
+                <ol>
+                    <li>
+                        The API for checking user data(i.e. if telephone number is valid) should be downloaded from the next link
+                        The API should be run with the program at the same time or it will not be able to register those wishing to receive the vaccine.
+                        https: //github.com/balshabanirepo/TelephoneNumbersWebAPI.
+                    </li>
+                    <li>
+                        The purpose of this API is to
+                        <ul>
+                            <li>
+                                demonstrate how Web API is called <
+                            </li>
+                            <li>
+                                demonstrate using Single Responsibility Principle through classifying methods needed to call the API into different classes
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        Please change the database connection text from the settings file and then create the database using update-database from package manager console
+                    </li>
+                </ol>
+        </ol>
+</p>
    
 </div>
