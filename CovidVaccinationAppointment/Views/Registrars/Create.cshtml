@@ -46,7 +46,7 @@
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
         <script>
-    var telephoneCheckerAPIUrl= '@Url.Action("CallTelephoneGeneratorFunction", "Registrars")'
+    var telephoneCheckerAPIUrl= '@Url.Action("CallTelephoneVerifyFunction", "Registrars")'
 
             $(function () {
                 $('#Telephone').change(

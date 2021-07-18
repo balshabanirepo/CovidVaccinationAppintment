@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 {
    public class TokenManager
     {
-        string apiUrlForTokenRetrieve = "http://localhost:65501/api/TelephoneDirectories/GetToken";
+        string apiUrlForTokenRetrieve = "http://localhost:65501/api/Home/GenerateNewToken";
         //SystemSettingsOperationsClass SystemSettingsServiceClass = new SystemSettingsOperationsClass();
 
         public string Token { get; set; }
@@ -89,6 +89,7 @@ new AuthenticationHeaderValue("Bearer", Token);
         public async Task<string> GenerateNewToken()
         {
             string responeData = "";
+            string tokenstring;
             Dictionary<string, string> responeDataConverted;
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(apiUrlForTokenRetrieve);
@@ -130,7 +131,8 @@ new AuthenticationHeaderValue("Bearer", Token);
 
 
             // Token = responeDataConverted["token"];
-            Token = responeData.Substring(10, responeData.Substring(10).IndexOf(",") - 2);
+            tokenstring = responeData.Substring(10, responeData.Substring(10).IndexOf(",") - 2);
+            Token = responeData;
             updateDbTokenField();
             return Token;
           

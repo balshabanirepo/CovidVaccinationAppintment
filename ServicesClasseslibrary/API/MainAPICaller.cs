@@ -15,12 +15,13 @@ namespace ServicesClasseslibrary.API
         protected async Task PrepareToken()
         {
             tokenManager = new TokenManager();
-            tokenManager.ReadTokenValueFromDb();
-            if (await tokenManager.CheckIfTokenExpired())
-            {
-                await tokenManager.GenerateNewToken();
+            //tokenManager.ReadTokenValueFromDb();
+            //if (await tokenManager.CheckIfTokenExpired())
+            //{
+            //    await tokenManager.GenerateNewToken();
 
-            }
+            //}
+            await tokenManager.GenerateNewToken();
             Token = tokenManager.Token;
 
         }
