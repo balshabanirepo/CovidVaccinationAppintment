@@ -43,23 +43,20 @@ using System.Threading.Tasks;
             client = new HttpClient();
 
             client.BaseAddress = new Uri(apiUrl);
-       
-
-            //var RequestObject = JsonConvert.SerializeObject(new
-
-            ////    HPISRequest
 
 
-            ////    ServiceKey= "SCFHS"
+           
 
-            ////,
-            ////    PractitionerIdentity = newPractitionerIdentity
-            //{
-            //    Number = "Number",
-            //    IDValue = "1111"
-            //});
+           
 
-            HttpResponseMessage response = await client.PostAsync(apiUrl+ "?Number=0000&Token=Token",new StringContent(""));
+            
+          
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, apiUrl + "?Number=0000" );
+
+            request.Headers.Authorization = new AuthenticationHeaderValue("Token", Token);
+
+          
+            HttpResponseMessage response =  await client.SendAsync(request);
             return response.StatusCode == System.Net.HttpStatusCode.Unauthorized;
 
 
@@ -126,7 +123,8 @@ using System.Threading.Tasks;
 
 
             // Token = responeDataConverted["token"];
-            Token = responeData.Substring(10, responeData.Substring(10).IndexOf(",") - 2);
+           //Token = responeData.Substring(10, responeData.Substring(10).IndexOf(",") - 2);
+           Token = responeData.Substring(0);
             updateDbTokenField();
             return Token;
           

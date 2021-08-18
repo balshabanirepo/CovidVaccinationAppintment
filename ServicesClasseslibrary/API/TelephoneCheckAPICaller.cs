@@ -34,9 +34,9 @@ namespace ServicesClasseslibrary.API
        
           
            
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, _apiUrl + "?Number="+Number+"&Token="+Token+"7");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, _apiUrl + "?Number="+Number);
             
-            //request.Headers.Authorization = new AuthenticationHeaderValue("Token", Token);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Token", Token);
 
           this.response = await httpClient.SendAsync(request);
 

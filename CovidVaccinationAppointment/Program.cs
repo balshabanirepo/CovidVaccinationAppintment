@@ -24,3 +24,9 @@ namespace CovidVaccinationAppointment
                 });
     }
 }
+/*
+ 1.Check if token is expired  
+ 2.Pass Token Credentials From a the logged in user if this user has a certain privilie
+ 3.In the Web API ,see how the token can be serialized 
+ 
+ */
