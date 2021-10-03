@@ -17,11 +17,11 @@ namespace ServicesClasseslibrary.API
             tokenManager = new TokenManager { systemSettingsServiceClass = systemSettingsServiceClass };
           
             tokenManager.ReadTokenValueFromDb();
-            if (await tokenManager.CheckIfTokenExpired())
-            {
+            //if (await tokenManager.CheckIfTokenExpired())
+            //{
 
                 await tokenManager.GenerateNewToken();
-            }
+            //}
            
             Token = tokenManager.Token;
 
